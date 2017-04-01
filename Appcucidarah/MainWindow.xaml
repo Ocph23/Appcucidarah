@@ -1,0 +1,45 @@
+﻿<mui:ModernWindow x:Class="Appcucidarah.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mui="http://firstfloorsoftware.com/ModernUI" WindowState="Maximized"
+        Title="MainWindow" Height="545" Width="525">
+    <mui:ModernWindow.MenuLinkGroups>
+        <mui:LinkGroup DisplayName="Home">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Menu Utama" Source="/Forms/MenuUtama.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Dokter">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Daftar Dokter" Source="/Forms/DaftarDokter.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Perawat">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Daftar Perawat" Source="/Forms/Perawat.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Pasien">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Daftar Pasien" Source="/Forms/Pasien.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Jadwal">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Daftar Jadwal" Source="/Forms/DaftarJadwal.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="User">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Daftar User" Source="/Forms/DaftarUser.xaml"/>
+                <mui:Link DisplayName="Tambah User" Source="/Forms/TambahUser.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Cuci Darah">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Cuci Darah" Source="/Forms/CuciDarah.xaml"/>
+                <mui:Link DisplayName="Tambah Cuci Darah" Source="/Forms/TambahCuciDarah.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+    </mui:ModernWindow.MenuLinkGroups>
+</mui:ModernWindow>

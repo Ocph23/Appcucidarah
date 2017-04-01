@@ -1,0 +1,31 @@
+﻿<Page x:Class="Appcucidarah.Forms.Perawat"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="Perawat">
+
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+        <DataGrid Style="{StaticResource myDataGrid}" ItemsSource="{Binding CollectionData.SourceView}" SelectedItem="{Binding CollectionData.Selected}" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Nama}" Header="Nama"/>
+                <DataGridTextColumn Binding="{Binding JenisKelamin}" Header="Jenis Kelamin"/>
+                <DataGridTextColumn Binding="{Binding TTL}" Header="Tempat Tanggal Lahir"/>
+                <DataGridTextColumn Binding="{Binding Agama}" Header="Agama"/>
+                <DataGridTextColumn Binding="{Binding Alamat}" Header="Alamat"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <WrapPanel Grid.Column="0" Grid.Row="1">
+            <Button Content="Tambah" Command="{Binding TambahCommand}" Style="{StaticResource myButtonSuccess}"/>
+            <Button Content="Edit" Command="{Binding EditCommand}" Style="{StaticResource myButtonInfo}"/>
+            <Button Content="Hapus" Command="{Binding HapusCommand}" Style="{StaticResource myButtonError}"/>
+        </WrapPanel>
+
+    </Grid>
+</Page>

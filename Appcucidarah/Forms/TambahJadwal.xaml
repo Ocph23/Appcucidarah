@@ -1,0 +1,210 @@
+﻿<mui:ModernWindow
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:tp="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit" x:Class="Appcucidarah.Forms.TambahJadwal"
+     mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="TambahJadwal" >
+
+    <mui:ModernWindow.Resources>
+        <Style x:Key="MyTimePickerStyle" TargetType="{x:Type tp:TimePicker}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlNormalBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+            <Setter Property="BorderThickness" Value="1,1,0,1"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="WatermarkTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type tp:TimePicker}">
+                        <Grid x:Name="root">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <tp:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{TemplateBinding AllowSpin}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}" VerticalContentAlignment="Stretch">
+                                <tp:WatermarkTextBox x:Name="PART_TextBox" AcceptsReturn="False" BorderThickness="0" Background="Transparent" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="{TemplateBinding IsTabStop}" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{TemplateBinding TextAlignment}" TextWrapping="NoWrap" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{TemplateBinding WatermarkTemplate}" Watermark="{TemplateBinding Watermark}"/>
+                            </tp:ButtonSpinner>
+                            <ToggleButton x:Name="_timePickerToggleButton" Background="White" Grid.Column="1" Focusable="False" IsChecked="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.IsHitTestVisible>
+                                    <Binding Path="IsOpen" RelativeSource="{RelativeSource TemplatedParent}">
+                                        <Binding.Converter>
+                                            <tp:InverseBoolConverter/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </ToggleButton.IsHitTestVisible>
+                                <ToggleButton.IsEnabled>
+                                    <Binding Path="IsReadOnly" RelativeSource="{RelativeSource TemplatedParent}">
+                                        <Binding.Converter>
+                                            <tp:InverseBoolConverter/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </ToggleButton.IsEnabled>
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Grid SnapsToDevicePixels="True">
+                                                        <tp:ButtonChrome x:Name="ToggleButtonChrome" CornerRadius="0" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderChecked="{Binding IsOpen, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type tp:TimePicker}}}" RenderEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type tp:TimePicker}}}">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Stretch" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Stretch"/>
+                                                                <Grid x:Name="arrowGlyph" Grid.Column="1" IsHitTestVisible="False" Margin="5">
+                                                                    <Path x:Name="Arrow" Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z" Fill="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" Height="5" Margin="0,1,0,0" Width="9"/>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </tp:ButtonChrome>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Fill" TargetName="Arrow" Value="#FFAFAFAF"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ToggleButton.Style>
+                                <ToggleButton.Visibility>
+                                    <TemplateBinding Property="ShowDropDownButton">
+                                        <TemplateBinding.Converter>
+                                            <BooleanToVisibilityConverter/>
+                                        </TemplateBinding.Converter>
+                                    </TemplateBinding>
+                                </ToggleButton.Visibility>
+                            </ToggleButton>
+                            <Popup x:Name="PART_Popup" AllowsTransparency="True" IsOpen="{Binding IsChecked, ElementName=_timePickerToggleButton}" StaysOpen="False" ToolTip="">
+                                <Popup.Resources>
+                                    <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Content" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Popup.Resources>
+                                <Border BorderBrush="#FFABADB3" BorderThickness="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=root}">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                            <GradientStop Color="#FFE5E5E5" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Grid>
+                                        <ListBox x:Name="PART_TimeListItems" BorderThickness="0" DisplayMemberPath="Display">
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListBoxItem}">
+                                                    <Setter Property="Padding" Value="4"/>
+                                                    <Style.Triggers>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                                <Condition Property="IsSelected" Value="False"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Background" Value="#FFB8E0F3"/>
+                                                            <Setter Property="BorderBrush" Value="#FF26A0DA"/>
+                                                        </MultiTrigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="False"/>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Background" Value="#FFC4E5F6"/>
+                                                            <Setter Property="BorderBrush" Value="#FF26A0DA"/>
+                                                        </MultiTrigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Background" Value="#FFD1E8FF"/>
+                                                            <Setter Property="BorderBrush" Value="#FF66A7E8"/>
+                                                        </MultiTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                        </ListBox>
+                                    </Grid>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                    <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                                <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                            </DataTrigger>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </mui:ModernWindow.Resources>
+    <mui:ModernWindow.Style>
+        <StaticResource ResourceKey="BlankWindow"/>
+    </mui:ModernWindow.Style>
+
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="25*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Grid.RowSpan="2">
+            <Label Content="Hari Pertama" Margin="5"/>
+            <Label Content="Hari Kedua" Margin="5"/>
+            <Label Content="Shif" Margin="5"/>
+            <Label Content="Jam Mulai" Margin="5"/>
+            <Label Content="Jam Selesai" Margin="5"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.RowSpan="2">
+            <ComboBox ItemsSource="{Binding Days}" SelectedItem="{Binding HariPertama, Mode=TwoWay, ValidatesOnDataErrors=True}" Margin="2"/>
+            <ComboBox ItemsSource="{Binding Days}" SelectedItem="{Binding HariKedua, Mode=TwoWay, ValidatesOnDataErrors=True}" Margin="2"/>
+            <ComboBox ItemsSource="{Binding Shifs}" SelectedItem="{Binding Shif, Mode=TwoWay, ValidatesOnDataErrors=True}" Margin="2"/>
+            <tp:TimePicker Margin="2" Height="22" CurrentDateTimePart="Hour24" Value="{Binding JamMulai, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{DynamicResource MyTimePickerStyle}"/>
+            <tp:TimePicker Margin="2" Height="22" CurrentDateTimePart="Hour24" Value="{Binding JamAkhir, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{StaticResource MyTimePickerStyle}"/>
+        </StackPanel>
+        <WrapPanel Grid.ColumnSpan="3" Grid.Row="1">
+            <Button Content="Keluar" Command="{Binding CancelCommand}" Style="{StaticResource myButtonError}"/>
+            <Button Content="Simpan" Command="{Binding SaveCommand}" Margin="2" Style="{StaticResource myButtonSuccess}"/>
+        </WrapPanel>
+    </Grid>
+</mui:ModernWindow>
