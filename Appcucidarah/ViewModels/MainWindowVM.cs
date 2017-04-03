@@ -15,9 +15,11 @@ namespace Appcucidarah.ViewModels
             Nurses = new Perawats();
             this.Pacients = new Pacients();
             this.Jadwals = new Jadwals();
+            this.JadwalPasiens = new JadwalPasients();
         }
 
         public Doctors Doctors { get; set; }
+        public JadwalPasients JadwalPasiens { get; private set; }
         public BaseCollection.Jadwals Jadwals { get;  set; }
         public Perawats Nurses { get;  set; }
         public Pacients Pacients { get; set; }

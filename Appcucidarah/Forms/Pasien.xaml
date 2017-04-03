@@ -13,12 +13,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.RowSpan="2">
+
+        <DataGrid Grid.RowSpan="2" Style="{StaticResource myDataGrid}" ItemsSource="{Binding CollectionData.SourceView}" SelectedItem="{Binding CollectionData.Selected}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="No"/>
-                <DataGridTextColumn Header="Nama"/>
-                <DataGridTextColumn Header="Alamat"/>
-                <DataGridTextColumn Header="No.HP"/>
+                <DataGridTextColumn Header="Nama" Binding="{Binding Nama}"/>
+                <DataGridTextColumn Header="Alamat" Binding="{Binding Alamat}"/>
+                <DataGridTextColumn Header="No.HP" Binding="{Binding Kontak.NomorTelepon}"/>
             </DataGrid.Columns>
         </DataGrid>
         <WrapPanel Grid.Row="1">

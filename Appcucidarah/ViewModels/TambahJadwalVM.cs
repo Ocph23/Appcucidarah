@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using Appcucidarah.Models.Data;
 
 namespace Appcucidarah.ViewModels
 {
@@ -24,6 +25,21 @@ namespace Appcucidarah.ViewModels
         public TambahJadwalVM()
         {
             this.Load();
+            this.IsNew = true;
+        }
+
+        public TambahJadwalVM(jadwal selected)
+        {
+            this.Load();
+            this.IsNew = false;
+            this.Akhir = new DateTime().Add(selected.JamAkhir);
+            this.Mulai = DateTime.Now.Add(selected.JamMulai);
+            this.HariKedua = selected.HariKedua;
+            this.HariPertama = selected.HariPertama;
+            this.Shif = selected.Shif;
+            this.IdJadwal = selected.IdJadwal;
+            this.JamAkhir = selected.JamAkhir;
+            this.JamMulai = selected.JamMulai;
         }
 
         private void Load()
@@ -42,15 +58,32 @@ namespace Appcucidarah.ViewModels
         private void SaveCommandAction(object obj)
         {
             var context = Helper.GetMainContex().Jadwals;
+
+
             try
             {
-                if (context.Insert(this))
+                if (IsNew)
                 {
-                    ModernDialog.ShowMessage("Data Berhasil Ditambah", "Seccess", MessageBoxButton.OK);
-                }
-                else
+                    if (context.Insert(this))
+                    {
+                        var dlg = new ModernDialog { Title = "Success", Content = "Data Berhasil Diperbaharui " };
+                        dlg.ShowDialog();
+                    }
+                    else
+                    {
+                        var dlg = new ModernDialog { Title = "Error", Content = "Data Gagal Ditambah " };
+                        dlg.ShowDialog();
+                    }
+                }else
                 {
-                    ModernDialog.ShowMessage("Data Gagal Ditambah", "Error", MessageBoxButton.OK);
+                    if(context.Update(this))
+                    {
+                        var dlg = new ModernDialog { Title = "Info", Content = "Data Berhasil Diperbaharui " };
+                        dlg.ShowDialog();
+                    }else
+                    {
+                        ModernDialog.ShowMessage("Data Gagal Diperbaharui", "Error", MessageBoxButton.OK);
+                    }
                 }
             }
             catch (MySqlException ex)
@@ -76,8 +109,13 @@ namespace Appcucidarah.ViewModels
             if (this.Shif== Shif.None)
                 return false;
 
+            if (this.JamMulai == new TimeSpan(0, 0, 0) || this.JamAkhir == new TimeSpan(0, 0, 0) || this.JamMulai > this.JamAkhir)
+            {
+                return false;
+            }
 
-            return true;
+
+                return true;
         }
         
 
@@ -87,6 +125,7 @@ namespace Appcucidarah.ViewModels
             get { throw new NotImplementedException(); }
         }
 
+        public bool IsNew { get; private set; }
 
         public string this[string columnName]
         {
@@ -100,11 +139,11 @@ namespace Appcucidarah.ViewModels
                 if (columnName == "Shif")
                     return (this.Shif== Shif.None )? "Pilih Shif" : null;
 
-                if (columnName == "JamMulai")
-                    return this.JamMulai ==new TimeSpan() ? "Tentukan Jam" : null;
-                if (columnName == "JamMulai")
-                    return this.JamAkhir <=JamMulai? "Tentukan Jam" : null;
+                if (columnName == "Mulai")
+                    return this.JamMulai ==new TimeSpan(0,0,0) ? "Tentukan Jam Mulai" : null;
 
+                if (columnName == "Akhir")
+                    return (this.JamAkhir == new TimeSpan(0, 0, 0)||this.JamMulai>this.JamAkhir) ? "Tentukan Jam Berakhir" : null;
                 return null;
             }
         }

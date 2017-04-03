@@ -12,20 +12,19 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.RowSpan="2">
+        <DataGrid Grid.RowSpan="2" ItemsSource="{Binding CollectionData.SourceView}" SelectedItem="{Binding CollectionData.Selected}" Style="{StaticResource myDataGrid}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="No"/>
-                <DataGridTextColumn Header="Hari Pertama"/>
-                <DataGridTextColumn Header="Hari Kedua"/>
-                <DataGridTextColumn Header="Shif"/>
-                <DataGridTextColumn Header="Jam Mulai"/>
-                <DataGridTextColumn Header="Jam Selesai"/>
+                <DataGridTextColumn Binding="{Binding HariPertama}" Header="Hari Pertama"/>
+                <DataGridTextColumn Binding="{Binding HariKedua}" Header="Hari Kedua"/>
+                <DataGridTextColumn Binding="{Binding Shif}" Header="Shif"/>
+                <DataGridTextColumn Binding="{Binding JamMulai}" Header="Jam Mulai"/>
+                <DataGridTextColumn Binding="{Binding JamAkhir}" Header="Jam Selesai"/>
             </DataGrid.Columns>
         </DataGrid>
         <WrapPanel Grid.ColumnSpan="2" Grid.Row="1">
             <Button Command="{Binding TambahCommand}" Content="Tambah" Style="{StaticResource myButtonSuccess}"/>
             <Button  Command="{Binding EditCommand}" Content="Edit" Style="{StaticResource myButtonInfo}"/>
-            <Button  Command="{Binding HapusCommand}" Content="Hapus" Style="{StaticResource myButtonError}"/>
+            <Button  Command="{Binding DeleteCommand}" Content="Hapus" Style="{StaticResource myButtonError}"/>
         </WrapPanel>
 
     </Grid>

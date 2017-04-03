@@ -199,8 +199,10 @@
             <ComboBox ItemsSource="{Binding Days}" SelectedItem="{Binding HariPertama, Mode=TwoWay, ValidatesOnDataErrors=True}" Margin="2"/>
             <ComboBox ItemsSource="{Binding Days}" SelectedItem="{Binding HariKedua, Mode=TwoWay, ValidatesOnDataErrors=True}" Margin="2"/>
             <ComboBox ItemsSource="{Binding Shifs}" SelectedItem="{Binding Shif, Mode=TwoWay, ValidatesOnDataErrors=True}" Margin="2"/>
-            <tp:TimePicker Margin="2" Height="22" CurrentDateTimePart="Hour24" Value="{Binding JamMulai, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{DynamicResource MyTimePickerStyle}"/>
-            <tp:TimePicker Margin="2" Height="22" CurrentDateTimePart="Hour24" Value="{Binding JamAkhir, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{StaticResource MyTimePickerStyle}"/>
+
+            <tp:TimePicker Margin="2" Height="22" AllowSpin="True" Value="{Binding Mulai, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+            <tp:TimePicker Margin="2" Height="22" AllowSpin="True" Value="{Binding Akhir, Mode=TwoWay,ValidatesOnDataErrors=True}" 
+                           Style="{StaticResource MyTimePickerStyle}"/>
         </StackPanel>
         <WrapPanel Grid.ColumnSpan="3" Grid.Row="1">
             <Button Content="Keluar" Command="{Binding CancelCommand}" Style="{StaticResource myButtonError}"/>

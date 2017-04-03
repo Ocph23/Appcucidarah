@@ -6,17 +6,17 @@ using System.Threading.Tasks;using DAL;
  
  namespace Appcucidarah.Models.Data 
 { 
-     [TableName("transaksijadwal")] 
-     public class transaksijadwal:BaseNotifyProperty  
+     [TableName("jadwalpasien")] 
+     public class jadwalpasien:BaseNotifyProperty  
    {
-          [PrimaryKey("IdTransaksiJadwal")] 
-          [DbColumn("IdTransaksiJadwal")] 
-          public int IdTransaksiJadwal 
-          { 
+          [PrimaryKey("IdJadwalPasien")] 
+          [DbColumn("IdJadwalPasien")] 
+          public int IdJadwalPasien
+        { 
                get{return _idtransaksijadwal;} 
                set{ 
                       _idtransaksijadwal=value; 
-                     OnPropertyChange("IdTransaksiJadwal");
+                     OnPropertyChange("IdJadwalPasien");
                      }
           } 
 
@@ -41,19 +41,26 @@ using System.Threading.Tasks;using DAL;
           } 
 
           [DbColumn("Status")] 
-          public string Status 
+          public bool Status 
           { 
                get{return _status;} 
                set{ 
                       _status=value; 
                      OnPropertyChange("Status");
                      }
-          } 
+          }
 
-          private int  _idtransaksijadwal;
+
+
+        public pasien Pacient { get; set; }
+
+        public jadwal Jadwal { get; set; }
+
+
+        private int  _idtransaksijadwal;
            private int  _idpasien;
            private int  _idjadwal;
-           private string  _status;
+           private bool  _status;
       }
 }
 

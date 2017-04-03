@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Appcucidarah.Models.Data;
 using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows;
+using System.Windows.Data;
 
 namespace Appcucidarah.ViewModels
 {
@@ -32,7 +33,9 @@ namespace Appcucidarah.ViewModels
 
         private void Load()
         {
-            
+
+            this.Jadwals = Helper.GetMainContex().Jadwals.SourceView;
+            this.Dokters = Helper.GetMainContex().Doctors.SourceView;
             Religions = Helper.GetEnumCollection<Religion>();
 
             Genders = Helper.GetEnumCollection<Gender>();
@@ -55,6 +58,7 @@ namespace Appcucidarah.ViewModels
             this.Agama = selected.Agama;
             this.Alamat = selected.Alamat;
             this.IdDokter = selected.IdDokter;
+            this.IdPasien = selected.IdPasien;
             this.JenisKelamin = selected.JenisKelamin;
             this.Kontak = selected.Kontak;
             this.TanggalLahir = selected.TanggalLahir;
@@ -111,6 +115,8 @@ namespace Appcucidarah.ViewModels
         }
 
         public bool IsNew { get; private set; }
+        public CollectionView Jadwals { get; private set; }
+        public CollectionView Dokters { get; private set; }
 
         public string this[string columnName]
         {

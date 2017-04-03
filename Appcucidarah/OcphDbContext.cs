@@ -32,6 +32,8 @@ namespace Appcucidarah
         public IRepository<perawat> Nurses{ get { return new Repository<perawat>(this); } }
         public IRepository<kontak> Contacts { get { return new Repository<kontak>(this); } }
 
+        public IRepository<jadwalpasien> JadwalPasients{ get { return new Repository<jadwalpasien>(this); } }
+
         public IDbConnection Connection
         {
             get

@@ -1,33 +1,34 @@
 ﻿using Appcucidarah.Models.Data;
 using Appcucidarah.ViewModels;
+using FirstFloor.ModernUI.Windows.Controls;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Linq;
-using System.Collections.Generic;
-using System;
-using FirstFloor.ModernUI.Windows.Controls;
 
 namespace Appcucidarah.BaseCollection
 {
-    public class Jadwals : IBaseViewModel<jadwal>
+    public class JadwalPasients:IBaseViewModel<jadwalpasien>
     {
 
-        public ObservableCollection<jadwal> Source { get; set; }
+        public ObservableCollection<jadwalpasien> Source { get; set; }
 
         public CollectionView SourceView { get; set; }
 
-        public jadwal Selected { get; set; }
+        public jadwalpasien Selected { get; set; }
 
-        public Jadwals()
+        public JadwalPasients()
         {
-            Source = new ObservableCollection<jadwal>();
+            Source = new ObservableCollection<jadwalpasien>();
             SourceView = (CollectionView)CollectionViewSource.GetDefaultView(Source);
             var task = GetCollectionFromDatabase();
             this.CompleteTask(task);
         }
 
-        private async void CompleteTask(Task<List<jadwal>> task)
+        private async void CompleteTask(Task<List<jadwalpasien>> task)
         {
             var x = await task;
             foreach (var item in x)
@@ -37,24 +38,28 @@ namespace Appcucidarah.BaseCollection
             }
         }
 
-        private Task<List<jadwal>> GetCollectionFromDatabase()
+        private Task<List<jadwalpasien>> GetCollectionFromDatabase()
         {
             using (var db = new OcphDbContext())
             {
-                var res = db.Jadwals.Select().OrderBy(O=>O.HariPertama).ToList();
-             
-                return Task.FromResult(res);
+                var res = from a in db.JadwalPasients.Select()
+                          join b in db.Jadwals.Select() on a.IdJadwal equals b.IdJadwal
+                          join c in db.Pacients.Select() on a.IdPasien equals c.IdPasien
+                          select new jadwalpasien { IdJadwal=a.IdJadwal, IdJadwalPasien=a.IdJadwalPasien, IdPasien=a.IdPasien,
+                           Jadwal=b, Pacient=c, Status=a.Status};
+
+                return Task.FromResult(res.ToList());
             }
         }
 
-        internal bool Delete(jadwal selected)
+        internal bool Delete(jadwalpasien selected)
         {
             using (var db = new OcphDbContext())
             {
                 var trans = db.Connection.BeginTransaction();
                 try
                 {
-                    db.Jadwals.Delete(O => O.IdJadwal == selected.IdJadwal);
+                    db.JadwalPasients.Delete(O => O.IdJadwalPasien == selected.IdJadwalPasien);
                     Source.Remove(selected);
                     SourceView.Refresh();
 
@@ -69,15 +74,15 @@ namespace Appcucidarah.BaseCollection
             }
         }
 
-        internal bool Insert(jadwal dok)
+        internal bool Insert(jadwalpasien jad)
         {
             using (var db = new OcphDbContext())
             {
                 var trans = db.Connection.BeginTransaction();
                 try
                 {
-                    dok.IdJadwal= db.Jadwals.InsertAndGetLastID(dok);
-                    this.Source.Add(dok);
+                    jad.IdJadwal = db.JadwalPasients.InsertAndGetLastID(jad);
+                    this.Source.Add(jad);
                     this.SourceView.Refresh();
                     trans.Commit();
 
@@ -91,22 +96,20 @@ namespace Appcucidarah.BaseCollection
             }
         }
 
-        internal bool Update(jadwal v)
+        internal bool Update(jadwalpasien v)
         {
             using (var db = new OcphDbContext())
             {
                 var trans = db.Connection.BeginTransaction();
                 try
                 {
-                    if (db.Jadwals.Update(O => new { O.HariPertama, O.HariKedua, O.JamMulai, O.JamAkhir, O.Shif },
-                         v, O => O.IdJadwal == v.IdJadwal))
+                    if (db.JadwalPasients.Update(O => new {O.IdJadwal,O.IdPasien,O.Status },
+                         v, O => O.IdJadwalPasien == v.IdJadwalPasien))
                     {
-                        var item = Source.Where(O => O.IdJadwal == v.IdJadwal).FirstOrDefault();
-                        item.HariKedua = v.HariKedua;
-                        item.HariPertama = v.HariPertama;
-                        item.JamAkhir = v.JamAkhir;
-                        item.JamMulai = v.JamMulai;
-                        item.Shif = v.Shif;
+                        var item = Source.Where(O => O.IdJadwalPasien == v.IdJadwalPasien).FirstOrDefault();
+                        item.IdJadwal = v.IdJadwal;
+                        item.IdPasien = v.IdPasien;
+                        item.Status = v.Status;
                         this.SourceView.Refresh();
                         trans.Commit();
                         return true;

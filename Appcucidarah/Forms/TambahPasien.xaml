@@ -35,17 +35,18 @@
             <TextBox Text="{Binding NomorPasien,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myTextBox}"></TextBox>
             <TextBox Text="{Binding Nama,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myTextBox}"></TextBox>
             <TextBox Text="{Binding TempatLahir, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{StaticResource myTextBox}"></TextBox>
-            <DatePicker Style="{StaticResource myDatePicker}"></DatePicker>
+            <DatePicker SelectedDate="{Binding TanggalLahir,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{DynamicResource myDatePicker}"></DatePicker>
             <ComboBox ItemsSource="{Binding Genders}" SelectedItem="{Binding JenisKelamin, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{StaticResource myCombo}"></ComboBox>
             <ComboBox ItemsSource="{Binding Religions}" SelectedItem="{Binding Agama,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myCombo}"></ComboBox>
             <TextBox Text="{Binding Alamat,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myTextBox}"></TextBox>
-            <TextBox Text="{Binding NomorTelepon,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myTextBox}"></TextBox>
-            <ComboBox Style="{StaticResource myCombo}"></ComboBox>
-            <CheckBox Margin="9" Content="Aktif"></CheckBox>
+            <TextBox Text="{Binding Kontak.NomorTelepon,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myTextBox}"></TextBox>
+            <ComboBox ItemsSource="{Binding Dokters}" SelectedValue="{Binding IdDokter}" SelectedValuePath="IdDokter" DisplayMemberPath="Nama" Style="{StaticResource myCombo}"/>
+           
+            <CheckBox IsChecked="{Binding Status}" Margin="9" Content="Aktif"></CheckBox>
         </StackPanel>
         <WrapPanel Grid.Row="1" Grid.ColumnSpan="2">
-            <Button Content="Batal" Style="{StaticResource myButtonError}"/>
-            <Button Content="Simpan" Style="{StaticResource myButtonSuccess}"/>
+            <Button Command="{Binding CancelCommand}" Content="Batal" Style="{StaticResource myButtonError}"/>
+            <Button Command="{Binding SaveCommand}" Content="Simpan" Style="{StaticResource myButtonSuccess}"/>
         </WrapPanel>
     </Grid>
 </mui:ModernWindow>

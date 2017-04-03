@@ -44,7 +44,8 @@ namespace Appcucidarah.BaseCollection
                 var res = db.Pacients.Select();
                 foreach (var item in res)
                 {
-                    item.Kontak = db.Contacts.Where(O => O.UserId == item.IdPasien).FirstOrDefault();
+                    var t = ContactType.Pasient;
+                    item.Kontak = db.Contacts.Where(O => O.UserId == item.IdPasien && O.TipeKontak== t).FirstOrDefault();
                 }
                 return Task.FromResult(res.OrderBy(O => O.Nama).ToList());
             }
@@ -81,7 +82,7 @@ namespace Appcucidarah.BaseCollection
                 try
                 {
                     p.IdPasien = db.Pacients.InsertAndGetLastID(p);
-                    p.Kontak.UserId = p.IdDokter;
+                    p.Kontak.UserId = p.IdPasien;
 
                     p.Kontak.TipeKontak = ContactType.Pasient;
                     p.Kontak.UserId = p.IdDokter;
@@ -108,11 +109,11 @@ namespace Appcucidarah.BaseCollection
                 var trans = db.Connection.BeginTransaction();
                 try
                 {
-                    db.Contacts.Update(O => new { O.NamaKontak, O.NomorTelepon }, p.Kontak, O => O.IdKontak == p.Kontak.IdKontak);
+                    db.Contacts.Update(O => new { O.NamaKontak, O.NomorTelepon }, p.Kontak, O => O.UserId == p.IdPasien && O.TipeKontak== ContactType.Pasient);
                     db.Pacients.Update(O => new { O.Agama, O.Alamat, O.JenisKelamin, O.Nama, O.TanggalLahir, O.TempatLahir,O.IdDokter,O.NomorPasien,O.Status, },
                         p, O => O.IdPasien == p.IdPasien);
-                    trans.Commit();
-                    var item = Source.Where(O => O.IdDokter == p.IdPasien).FirstOrDefault();
+                  
+                    var item = Source.Where(O => O.IdPasien == p.IdPasien).FirstOrDefault();
                     item.Agama = p.Agama;
                     item.Alamat = p.Alamat;
                     item.JenisKelamin = p.JenisKelamin;
@@ -123,7 +124,7 @@ namespace Appcucidarah.BaseCollection
                     item.TanggalLahir = p.TanggalLahir;
                     item.TempatLahir = p.TempatLahir;
                     this.SourceView.Refresh();
-
+                    trans.Commit();
                     return true;
 
                 }

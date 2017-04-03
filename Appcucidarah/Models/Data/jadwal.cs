@@ -53,30 +53,57 @@ using System.Threading.Tasks;using DAL;
           [DbColumn("JamMulai")] 
           public TimeSpan JamMulai 
           { 
-               get{return _jammulai;} 
-               set{ 
-                      _jammulai=value; 
-                     OnPropertyChange("JamMulai");
-                     }
+               get{return Mulai.TimeOfDay;} 
+               set
+            {
+                Mulai = new DateTime().Add(value);
+                OnPropertyChange("JamMulai");
+
+            }
           } 
 
           [DbColumn("JamAkhir")] 
           public TimeSpan JamAkhir 
           { 
-               get{return _jamakhir;} 
-               set{ 
-                      _jamakhir=value; 
+               get{return Akhir.TimeOfDay;} 
+               set{
+                         Akhir = new DateTime().Add(value);
                      OnPropertyChange("JamAkhir");
                      }
           } 
 
-          private int  _idjadwal;
+
+            public DateTime Mulai
+        {
+            get { return _mulai; }
+            set
+            {
+                _mulai = value;
+                OnPropertyChange("Mulai");
+            }
+
+        }
+        public DateTime Akhir
+        {
+            get { return _akhir; }
+            set
+            {
+                _akhir = value;
+                OnPropertyChange("Akhir");
+            }
+
+        }
+
+
+        private int  _idjadwal;
            private Day  _haripertama;
            private Day  _harikedua;
            private Shif  _shif;
            private TimeSpan _jammulai;
            private TimeSpan _jamakhir;
-      }
+        private DateTime _mulai;
+        private DateTime _akhir;
+    }
 }
 
 

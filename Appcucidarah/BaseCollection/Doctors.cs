@@ -44,7 +44,8 @@ namespace Appcucidarah.BaseCollection
                 var res = db.Doctors.Select();
                 foreach(var item in res)
                 {
-                    item.Kontak = db.Contacts.Where(O => O.UserId == item.IdDokter).FirstOrDefault();
+                    var t = ContactType.Dokter;
+                    item.Kontak = db.Contacts.Where(O => O.UserId == item.IdDokter && O.TipeKontak==t).FirstOrDefault();
                 }
                 return Task.FromResult(res.OrderBy(O=>O.Nama).ToList());
             }
@@ -108,7 +109,7 @@ namespace Appcucidarah.BaseCollection
                 var trans = db.Connection.BeginTransaction();
                 try
                 {
-                    db.Contacts.Update(O => new { O.NamaKontak, O.NomorTelepon }, dok.Kontak, O => O.IdKontak == dok.Kontak.IdKontak);
+                    db.Contacts.Update(O => new { O.NamaKontak, O.NomorTelepon }, dok.Kontak, O => O.UserId== dok.IdDokter && O.TipeKontak== ContactType.Dokter);
                     db.Doctors.Update(O => new { O.Agama, O.Alamat, O.JenisKelamin, O.Nama, O.TanggalLahir, O.TempatLahir },
                         dok, O => O.IdDokter == dok.IdDokter);
                     trans.Commit();
