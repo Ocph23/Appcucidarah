@@ -51,7 +51,7 @@ namespace Appcucidarah.BaseCollection
             }
         }
 
-        internal bool Delete(perawat selected)
+        public bool Delete(perawat selected)
         {
             using (var db = new OcphDbContext())
             {
@@ -85,7 +85,6 @@ namespace Appcucidarah.BaseCollection
                     nurse.Kontak.UserId = nurse.IdPerawat;
 
                     nurse.Kontak.TipeKontak = ContactType.Perawat;
-                    nurse.Kontak.UserId = nurse.IdPerawat;
                     nurse.Kontak.NamaKontak = nurse.Nama;
                     nurse.Kontak.IdKontak = db.Contacts.InsertAndGetLastID(nurse.Kontak);
                     this.Source.Add(nurse);

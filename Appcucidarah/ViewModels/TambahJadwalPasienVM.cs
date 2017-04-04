@@ -1,6 +1,7 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using System;
 using System.Windows.Data;
+using Appcucidarah.Models.Data;
 
 namespace Appcucidarah.ViewModels
 {
@@ -12,6 +13,18 @@ namespace Appcucidarah.ViewModels
         {
             this.Load();
             this.IsNew = true;
+        }
+
+        public TambahJadwalPasienVM(jadwalpasien selected)
+        {
+            this.IsNew = false;
+            Load();
+            this.IdJadwal = selected.IdJadwal;
+            this.IdJadwalPasien = selected.IdJadwalPasien;
+            this.IdPasien = selected.IdPasien;
+            this.Jadwal = selected.Jadwal;
+            this.Pacient = selected.Pacient;
+            this.Status = selected.Status;
         }
 
         private void Load()

@@ -7,6 +7,7 @@
         <mui:LinkGroup DisplayName="Home">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="Menu Utama" Source="/Forms/MenuUtama.xaml"/>
+                <mui:Link DisplayName="Cuci Darah" Source="/Forms/CuciDarah.xaml"/>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Dokter">
@@ -36,11 +37,6 @@
                 <mui:Link DisplayName="Tambah User" Source="/Forms/TambahUser.xaml"/>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
-        <mui:LinkGroup DisplayName="Cuci Darah">
-            <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Cuci Darah" Source="/Forms/CuciDarah.xaml"/>
-                <mui:Link DisplayName="Tambah Cuci Darah" Source="/Forms/TambahCuciDarah.xaml"/>
-            </mui:LinkGroup.Links>
-        </mui:LinkGroup>
+       
     </mui:ModernWindow.MenuLinkGroups>
 </mui:ModernWindow>

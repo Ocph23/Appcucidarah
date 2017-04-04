@@ -51,7 +51,7 @@ namespace Appcucidarah.BaseCollection
             }
         }
 
-        internal bool Delete(dokter selected)
+        public bool Delete(dokter selected)
         {
             using (var db = new OcphDbContext())
             {
@@ -85,7 +85,6 @@ namespace Appcucidarah.BaseCollection
                     dok.Kontak.UserId = dok.IdDokter;
 
                     dok.Kontak.TipeKontak = ContactType.Dokter;
-                    dok.Kontak.UserId = dok.IdDokter;
                     dok.Kontak.NamaKontak = dok.Nama;
                     dok.Kontak.IdKontak = db.Contacts.InsertAndGetLastID(dok.Kontak);
                     this.Source.Add(dok);

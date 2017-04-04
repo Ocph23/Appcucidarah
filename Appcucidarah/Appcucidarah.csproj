@@ -116,7 +116,12 @@
     <Compile Include="Forms\TambahJadwalPasien.xaml.cs">
       <DependentUpon>TambahJadwalPasien.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper.cs" />
+    <Compile Include="Models\Views\CuciDarahView.cs" />
+    <Compile Include="ViewModels\CuciDarahVM.cs" />
     <Compile Include="ViewModels\DokterVM.cs" />
     <Compile Include="ViewModels\IBaseViewModel.cs" />
     <Compile Include="ViewModels\JadwalPasienVM.cs" />
@@ -124,6 +129,7 @@
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Compile Include="ViewModels\PasienVM.cs" />
     <Compile Include="ViewModels\PerawatVM.cs" />
+    <Compile Include="ViewModels\TambahCuciDarahVM.cs" />
     <Compile Include="ViewModels\TambahDokterVM.cs" />
     <Compile Include="ViewModels\TambahJadwalPasienVM.cs" />
     <Compile Include="ViewModels\TambahJadwalVM.cs" />
@@ -194,6 +200,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\TambahUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

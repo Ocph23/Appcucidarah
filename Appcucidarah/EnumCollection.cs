@@ -33,4 +33,10 @@ namespace Appcucidarah
     {
         Umum, Pasient, Dokter, Perawat
     }
+
+    public enum ProccessStatus
+    {
+        New,Start,Stop,Save
+    }
+
 }

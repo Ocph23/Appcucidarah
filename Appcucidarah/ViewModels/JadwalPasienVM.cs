@@ -1,9 +1,11 @@
 ﻿using Appcucidarah.Models.Data;
+using FirstFloor.ModernUI.Windows.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Appcucidarah.ViewModels
 {
@@ -37,12 +39,31 @@ namespace Appcucidarah.ViewModels
         
         private void EditCommandAction()
         {
-            throw new NotImplementedException();
+            var form = new Forms.TambahJadwalPasien();
+            var vm = new ViewModels.TambahJadwalPasienVM(CollectionData.Selected) { WindowClose = form.Close };
+            form.DataContext = vm;
+            form.ShowDialog();
         }
 
         private void HapusCommandAction(object obj)
         {
-            throw new NotImplementedException();
+            var dlg = new ModernDialog { Title = "Ask", Content = "Yakin Menghapus Data ?" };
+            dlg.Buttons = new Button[] { dlg.OkButton, dlg.CancelButton };
+            dlg.ShowDialog();
+
+            if (dlg.DialogResult == true)
+            {
+
+                if (CollectionData.Delete(CollectionData.Selected))
+                {
+                    ModernDialog.ShowMessage("Data Berhasil Dihapus", "Success", System.Windows.MessageBoxButton.OK);
+                }
+                else
+                {
+                    ModernDialog.ShowMessage("Data Gagal Dihapus", "Error", System.Windows.MessageBoxButton.OK);
+                }
+            }
+
         }
 
         private void TambahCommandAction()

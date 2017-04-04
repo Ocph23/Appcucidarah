@@ -47,7 +47,7 @@ namespace Appcucidarah.BaseCollection
             }
         }
 
-        internal bool Delete(jadwal selected)
+        public bool Delete(jadwal selected)
         {
             using (var db = new OcphDbContext())
             {

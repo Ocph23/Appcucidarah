@@ -52,7 +52,7 @@ namespace Appcucidarah.BaseCollection
             }
         }
 
-        internal bool Delete(jadwalpasien selected)
+        public bool Delete(jadwalpasien selected)
         {
             using (var db = new OcphDbContext())
             {
@@ -110,6 +110,8 @@ namespace Appcucidarah.BaseCollection
                         item.IdJadwal = v.IdJadwal;
                         item.IdPasien = v.IdPasien;
                         item.Status = v.Status;
+                        item.Jadwal = v.Jadwal;
+                        item.Pacient = v.Pacient;
                         this.SourceView.Refresh();
                         trans.Commit();
                         return true;
@@ -126,5 +128,6 @@ namespace Appcucidarah.BaseCollection
                 }
             }
         }
+
     }
 }

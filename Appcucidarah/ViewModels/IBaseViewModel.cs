@@ -8,6 +8,7 @@ namespace Appcucidarah.ViewModels
         ObservableCollection<T> Source { get; set; }
         CollectionView SourceView { get; set; }
         T Selected { get; set; }
+        bool Delete(T t);
 
 
     }
