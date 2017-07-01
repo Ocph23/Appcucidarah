@@ -71,8 +71,7 @@ using System.Threading.Tasks;using DAL;
                      OnPropertyChange("JamAkhir");
                      }
           } 
-
-
+        
             public DateTime Mulai
         {
             get { return _mulai; }
@@ -83,6 +82,7 @@ using System.Threading.Tasks;using DAL;
             }
 
         }
+
         public DateTime Akhir
         {
             get { return _akhir; }
@@ -91,16 +91,15 @@ using System.Threading.Tasks;using DAL;
                 _akhir = value;
                 OnPropertyChange("Akhir");
             }
-
         }
 
+      //  public StatusJadwal Status { get; set; }
+        public string HeaderView { get { return HariPertama + " - " + HariKedua ; } }
 
         private int  _idjadwal;
            private Day  _haripertama;
            private Day  _harikedua;
            private Shif  _shif;
-           private TimeSpan _jammulai;
-           private TimeSpan _jamakhir;
         private DateTime _mulai;
         private DateTime _akhir;
     }

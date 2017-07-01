@@ -48,10 +48,20 @@ using System.Threading.Tasks;using DAL;
                       _isipesan=value; 
                      OnPropertyChange("IsiPesan");
                      }
-          } 
+          }
+        [DbColumn("Penerima")]
+        public string Penerima
+        {
+            get { return _penerima; }
+            set
+            {
+                _penerima= value;
+                OnPropertyChange("Penerima");
+            }
+        }
 
-          [DbColumn("Status")] 
-          public string Status 
+        [DbColumn("Status")] 
+          public bool Status 
           { 
                get{return _status;} 
                set{ 
@@ -64,8 +74,9 @@ using System.Threading.Tasks;using DAL;
            private int  _idkontak;
            private DateTime  _waktuterkirim;
            private string  _isipesan;
-           private string  _status;
-      }
+           private bool  _status;
+        private string _penerima;
+    }
 }
 
 

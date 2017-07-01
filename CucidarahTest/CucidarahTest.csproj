@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Project Tools\OcphSMSLIB\OcphSMSLib\OcphSMSLib.csproj">
+      <Project>{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}</Project>
+      <Name>OcphSMSLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Appcucidarah\Appcucidarah.csproj">
       <Project>{d6683ee8-789e-44d4-aa5e-c1f15db464ea}</Project>
       <Name>Appcucidarah</Name>

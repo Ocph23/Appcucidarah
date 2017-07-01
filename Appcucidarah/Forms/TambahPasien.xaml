@@ -28,7 +28,7 @@
             <Label Content="Agama" Style="{StaticResource myLabel}"/>
             <Label Content="Alamat" Style="{StaticResource myLabel}"/>
             <Label Content="No. HP" Style="{StaticResource myLabel}"/>
-            <Label Content="Pilih Jadwal" Style="{StaticResource myLabel}"/>
+            <Label Content="Dokter" Style="{StaticResource myLabel}"/>
             <Label Content="Status Pasien" Style="{StaticResource myLabel}"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.RowSpan="2">
@@ -40,7 +40,7 @@
             <ComboBox ItemsSource="{Binding Religions}" SelectedItem="{Binding Agama,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myCombo}"></ComboBox>
             <TextBox Text="{Binding Alamat,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myTextBox}"></TextBox>
             <TextBox Text="{Binding Kontak.NomorTelepon,Mode=TwoWay,ValidatesOnDataErrors=True}" Style="{StaticResource myTextBox}"></TextBox>
-            <ComboBox ItemsSource="{Binding Dokters}" SelectedValue="{Binding IdDokter}" SelectedValuePath="IdDokter" DisplayMemberPath="Nama" Style="{StaticResource myCombo}"/>
+            <ComboBox ItemsSource="{Binding Dokters}" SelectedItem="{Binding  SelectedDokter}" SelectedValue="{Binding IdDokter}" SelectedValuePath="IdDokter" DisplayMemberPath="Nama" Margin="5,5" Height="30"/>
            
             <CheckBox IsChecked="{Binding Status}" Margin="9" Content="Aktif"></CheckBox>
         </StackPanel>

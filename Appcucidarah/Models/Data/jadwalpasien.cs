@@ -7,12 +7,12 @@ using System.Threading.Tasks;using DAL;
  namespace Appcucidarah.Models.Data 
 { 
      [TableName("jadwalpasien")] 
-     public class jadwalpasien:BaseNotifyProperty  
-   {
+     public class jadwalpasien:BaseNotifyProperty,ICloneable
+        {
           [PrimaryKey("IdJadwalPasien")] 
           [DbColumn("IdJadwalPasien")] 
           public int IdJadwalPasien
-        { 
+          { 
                get{return _idtransaksijadwal;} 
                set{ 
                       _idtransaksijadwal=value; 
@@ -28,20 +28,19 @@ using System.Threading.Tasks;using DAL;
                       _idpasien=value; 
                      OnPropertyChange("IdPasien");
                      }
-          } 
-
-          [DbColumn("IdJadwal")] 
-          public int IdJadwal 
-          { 
-               get{return _idjadwal;} 
-               set{ 
-                      _idjadwal=value; 
-                     OnPropertyChange("IdJadwal");
-                     }
-          } 
-
-          [DbColumn("Status")] 
-          public bool Status 
+          }
+        [DbColumn("IdJadwal")]
+        public int IdJadwal
+        {
+            get { return _idjadwal; }
+            set
+            {
+                _idjadwal = value;
+                OnPropertyChange("IdJadwal");
+            }
+        }
+        [DbColumn("Status")] 
+          public StatusJadwal Status 
           { 
                get{return _status;} 
                set{ 
@@ -50,18 +49,92 @@ using System.Threading.Tasks;using DAL;
                      }
           }
 
+        [DbColumn("IdPindah")]
+        public int Temp
+        {
+            get { return _temp; }
+            set
+            {
+                _temp = value;
+                OnPropertyChange("Temp");
+            }
+        }
+
+        public jadwal Jadwal {
+            get
+            {
+                using(var db=new OcphDbContext())
+                {
+                    return db.Jadwals.Where(O => O.IdJadwal == IdJadwal).FirstOrDefault();
+                }
+               
+            }    
+        }
+
+        public jadwal JadwalDari
+        {
+            get
+            {
+                using (var db = new OcphDbContext())
+                {
+                    if(Pindah != null)
+                    {
+                        return db.Jadwals.Where(O => O.IdJadwal == Pindah.Dari).FirstOrDefault();
+                    }
+
+                    return null;
+                }
+            }
+        }
+
+        public jadwal JadwalKe
+        {
+            get
+            {
+                using (var db = new OcphDbContext())
+                {
+                    if (Pindah != null)
+                        return db.Jadwals.Where(O => O.IdJadwal == Pindah.Ke).FirstOrDefault();
+                    return null;
+                }
+            }
+        }
 
 
-        public pasien Pacient { get; set; }
+        public jadwalpasien Clone()
+        {
+            return (jadwalpasien)this.MemberwiseClone();
+        }
 
-        public jadwal Jadwal { get; set; }
+        object ICloneable.Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
+        public permintaanpindah Pindah
+        {
+            get
+            {
+                using(var db = new OcphDbContext())
+                {
+                    if (this.Temp > 0)
+                        return db.PermintaanPindahs.Where(O => O.Id == Temp).FirstOrDefault();
+                    else
+                        return null;
+                }
+               
+            }
+        }
+
+
 
 
         private int  _idtransaksijadwal;
            private int  _idpasien;
            private int  _idjadwal;
-           private bool  _status;
-      }
+           private StatusJadwal  _status;
+        private int _temp;
+    }
 }
 
 

@@ -1,48 +1,78 @@
-﻿<Page x:Class="Appcucidarah.Forms.CuciDarah"
+﻿<UserControl x:Class="Appcucidarah.Forms.CuciDarah"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:self="clr-namespace:Appcucidarah.Models.Data"
       xmlns:v="clr-namespace:Appcucidarah.Models.Views"
+      xmlns:my="clr-namespace:Appcucidarah"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="CuciDarah">
+      d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="29"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <TreeView ItemsSource="{Binding SourceView}" HorizontalAlignment="Stretch" Background="{x:Null}" SelectedItemChanged="TreeView_SelectedItemChanged">
-                <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type v:CuciDarahView}" ItemsSource="{Binding Pacients}">
-                        <StackPanel Orientation="Horizontal" Background="#FF95C4C9" Margin="0,20,0,0">
-                            <TextBlock Text="{Binding HariPertama}" Margin="10" />
-                            <TextBlock Text="-" Margin="10" />
-                            <TextBlock Text="{Binding HariKedua}" Margin="10" />
-                            <TextBlock Text="-" Margin="10" />
-                            <TextBlock Text="{Binding Shif}" Margin="10" />
-                        </StackPanel>
+        <DatePicker SelectedDate="{Binding Today}" IsEnabled="False" HorizontalAlignment="Left" Grid.Row="0" Width="107"></DatePicker>
+        <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="3">
+            <ListBox ItemsSource="{Binding SourceView}" SelectedItem="{Binding PacientSelected}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="#FFFFFFFE" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Background="#FFCBECE9" >
+                                <TextBlock Text="{Binding NomorPasien}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
+                            </Grid>
+                            <StackPanel Grid.Column="1"  Background="#FFC1CBB2">
+                                <TextBlock  Text="{Binding Nama}" FontSize="16" Margin="10"/>
+                                <TextBlock Text="{Binding Alamat}" TextWrapping="Wrap" Margin="10"/>
+                            </StackPanel>
 
+                            <Grid Grid.Column="2" Background="#FFF7F6C9">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="250"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <Button Command="{Binding Proccess.SaveCommand }" Content="{Binding Proccess.SaveCommandContent}" Style="{StaticResource myButtonSuccess}"></Button>
+                                    <Button Command="{Binding Proccess.CancelCommand }" Content="Batal" Style="{StaticResource myButtonError}"></Button>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Grid.RowSpan="2">
+                                    <TextBlock Text="{Binding Proccess.Mulai}" Style="{DynamicResource mytextBlock}"></TextBlock>
+                                    <TextBlock Text="{Binding Proccess.Akhir}" Style="{DynamicResource mytextBlock}"></TextBlock>
+                                </StackPanel>
 
-                    </HierarchicalDataTemplate>
-                    <DataTemplate DataType="{x:Type self:pasien}">
-                        <StackPanel Orientation="Horizontal" Background="#FFE7F1C1">
-                            <TextBlock Text="{Binding NomorPasien}" Margin="10" />
-                            <TextBlock Text="{Binding Nama}" Margin="10" />
-                            <TextBlock Text="{Binding JenisKelamin}" Margin="10" />
-                            <TextBlock Text="{Binding Agama}" Margin="10" />
-                            <TextBlock Text="{Binding  Kontak.NomorTelepon}" Margin="10" />
-                        </StackPanel>
+                            </Grid>
+                        </Grid>
                     </DataTemplate>
-                </TreeView.Resources>
-            </TreeView>
-        </StackPanel>
-        <WrapPanel Grid.Row="1">
-            <Button Content="Proses" Command="{Binding ProccessCommand}" Style="{StaticResource myButtonSuccess}"/>
-            <Button Content="Keluar" Command="{Binding KeluarCommand}" Style="{StaticResource  myButtonError}"/>
-        </WrapPanel>
+                </ListBox.ItemTemplate>
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}" Margin="10"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="6"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </ScrollViewer>
+       
+
     </Grid>
-</Page>
+</UserControl>

@@ -23,6 +23,8 @@ namespace Appcucidarah.Forms
         public DaftarUser()
         {
             InitializeComponent();
+            this.DataContext = new ViewModels.DaftarUserVM();
+
         }
     }
 }

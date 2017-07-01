@@ -48,7 +48,15 @@ namespace Appcucidarah.ViewModels
             if (dlg.DialogResult == true)
             {
                 var ctx = Helper.GetMainContex().Pacients;
-                ctx.Delete(CollectionData.Selected);
+                try
+                {
+                    ctx.Delete(CollectionData.Selected);
+                }
+                catch (Exception ex)
+                {
+                    ModernDialog.ShowMessage(ex.Message,"Error", System.Windows.MessageBoxButton.OK);
+                }
+               
             }
 
 

@@ -60,10 +60,24 @@ namespace Appcucidarah.ViewModels
 
             if (dlg.DialogResult == true)
             {
-                if (CollectionData.Delete(CollectionData.Selected))
+                try
                 {
-                    Xceed.Wpf.Toolkit.MessageBox.Show("Data Berhasil Dihapus", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (CollectionData.Delete(CollectionData.Selected))
+                    {
+                        ModernDialog.ShowMessage("Data Berhasil Dihapus", "Success", MessageBoxButton.OK);
+                    }else
+                    {
+                        ModernDialog.ShowMessage("Data Gagal Dihapus", "Error", MessageBoxButton.OK);
+
+                    }
                 }
+                catch (Exception)
+                {
+
+                    ModernDialog.ShowMessage("Data Gagal Dihapus", "Error", MessageBoxButton.OK);
+
+                }
+
             }
            
         }

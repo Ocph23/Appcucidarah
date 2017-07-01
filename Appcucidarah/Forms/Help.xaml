@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Appcucidarah.Forms.Help"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Appcucidarah.Forms"
+             mc:Ignorable="d" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Margin="20">
+        <StackPanel>
+            <Label Content="FORMAT SMS"  FontWeight="Bold" FontSize="14"/>
+            <StackPanel Margin="0,10,89,0" >
+                <WrapPanel>
+                    <iconPacks:PackIconFontAwesome Kind="ArrowCircleRight" Margin="10,0"/>
+                    <Label Content="Request Pindah Shif" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                </WrapPanel>
+                <StackPanel>
+                    <Label Margin="40,0" Content="Format : Pindah#Shif"></Label>
+                    <Label Margin="40,0" Content="Contoh : PINDAH#SORE "></Label>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="0,10,110,0" >
+                <WrapPanel>
+                    <iconPacks:PackIconFontAwesome Kind="ArrowCircleRight" Margin="10,0"/>
+                    <Label Content="Request Jadwal Cuci Darah" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                </WrapPanel>
+                <StackPanel>
+                    <Label Margin="40,0" Content="Format : Info#Jadwal"></Label>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="0,10,84,0" >
+                <WrapPanel>
+                    <iconPacks:PackIconFontAwesome Kind="ArrowCircleRight" Margin="10,0"/>
+                    <Label Content="Request Jadwal Minum Obat" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                </WrapPanel>
+                <StackPanel>
+                    <Label Margin="40,0" Content="Format : Info#minumobat"></Label>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="0,10,84,0" >
+                <WrapPanel>
+                    <iconPacks:PackIconFontAwesome Kind="ArrowCircleRight" Margin="10,0"/>
+                    <Label Content="Persetujuan Pindah Shif Oleh Admin" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                </WrapPanel>
+                <StackPanel>
+                    <Label Margin="40,0" Content="Format : PINDAHKAN#NOMOR REKAM MEDIK#IZINKAN/TOLAK"></Label>
+                    <Label Margin="40,0" Content="Contoh : PINDAHKAN#P00001#IZINKAN"></Label>
+                </StackPanel>
+            </StackPanel>
+            <Button Name="Cetak" Click="Cetak_Click" Content="Print" Margin="20,20,0,0" HorizontalAlignment="Left" Width="87">            </Button>
+        </StackPanel>
+      
+    </Grid>
+</UserControl>

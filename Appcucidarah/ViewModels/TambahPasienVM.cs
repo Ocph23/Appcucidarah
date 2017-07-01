@@ -16,6 +16,7 @@ namespace Appcucidarah.ViewModels
         #region properties
         public List<Religion> Religions { get; set; }
         public List<Gender> Genders { get; set; }
+        public dokter SelectedDokter { get; set; }
         public Action WindowClose { get; set; }
         public CommandHandler SaveCommand { get; private set; }
         public CommandHandler CancelCommand { get; private set; }
@@ -89,20 +90,27 @@ namespace Appcucidarah.ViewModels
         private void SaveCommandAction(object obj)
         {
 
-
-            var context= Helper.GetMainContex().Pacients;
-
-            if (IsNew)
+            try
             {
-                if (context.Insert(this))
+                var context = Helper.GetMainContex().Pacients;
+
+                if (IsNew)
                 {
-                    ModernDialog.ShowMessage("Data Berhasil Ditambah", "Info", MessageBoxButton.OK);
+                    if (context.Insert(this))
+                    {
+                        ModernDialog.ShowMessage("Data Berhasil Ditambah", "Info", MessageBoxButton.OK);
+                    }
                 }
+                else if (context.Update(this))
+                {
+                    ModernDialog.ShowMessage("Data Berhasil Diubah", "Info", MessageBoxButton.OK);
+                }
+
             }
-            else
-                if (context.Update(this))
+            catch (Exception ex)
             {
-                ModernDialog.ShowMessage("Data Berhasil Diubah", "Info", MessageBoxButton.OK);
+
+                ModernDialog.ShowMessage(ex.Message, "Info", MessageBoxButton.OK);
             }
 
         }
@@ -123,9 +131,9 @@ namespace Appcucidarah.ViewModels
             get
             {
                 if (columnName == "NomorPasien")
-                    return string.IsNullOrEmpty(this.NomorPasien) ? "Nomor Pasient Tidak Boleh Kosong" : null;
+                    return string.IsNullOrEmpty(this.NomorPasien) ? "Nomor Pasien Tidak Boleh Kosong" : null;
                 if (columnName == "Nama")
-                    return string.IsNullOrEmpty(this.Nama) ? "Nama Dokter Tidak Boleh Kosong" : null;
+                    return string.IsNullOrEmpty(this.Nama) ? "Nama Pasien Tidak Boleh Kosong" : null;
                 if (columnName == "TempatLahir")
                     return string.IsNullOrEmpty(this.TempatLahir) ? "Tempat Lahir Tidak Boleh Kosong" : null;
                 if (columnName == "Agama")

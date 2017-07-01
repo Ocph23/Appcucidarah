@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appcucidarah", "Appcucidarah\Appcucidarah.csproj", "{D6683EE8-789E-44D4-AA5E-C1F15DB464EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CucidarahTest", "CucidarahTest\CucidarahTest.csproj", "{08341122-D656-461B-97A5-83AFA5B5CB22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcphSMSLib", "..\..\..\Project Tools\OcphSMSLIB\OcphSMSLib\OcphSMSLib.csproj", "{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppcucidarahTests", "AppcucidarahTests\AppcucidarahTests.csproj", "{61B01D1D-1D1E-43B1-95C4-99051D10C7DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,14 @@ Global
 		{D6683EE8-789E-44D4-AA5E-C1F15DB464EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6683EE8-789E-44D4-AA5E-C1F15DB464EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6683EE8-789E-44D4-AA5E-C1F15DB464EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08341122-D656-461B-97A5-83AFA5B5CB22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08341122-D656-461B-97A5-83AFA5B5CB22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08341122-D656-461B-97A5-83AFA5B5CB22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08341122-D656-461B-97A5-83AFA5B5CB22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61B01D1D-1D1E-43B1-95C4-99051D10C7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B01D1D-1D1E-43B1-95C4-99051D10C7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61B01D1D-1D1E-43B1-95C4-99051D10C7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61B01D1D-1D1E-43B1-95C4-99051D10C7DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
                  d:DesignHeight="300" d:DesignWidth="300"
                   Style="{StaticResource BlankWindow}"
-	Title="TambahCuciDarah">
+	Title="Pilih Perawat">
 
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
@@ -22,22 +22,16 @@
         <StackPanel Grid.Column="0" Grid.RowSpan="2">
             <Label Content="Nomor Pasien" Style="{StaticResource myLabel}"/>
             <Label Content="Nama Pasien" Style="{StaticResource myLabel}"/>
-            <Label Content="Dokter" Style="{StaticResource myLabel}"/>
             <Label Content="Perawat" Style="{StaticResource myLabel}"/>
-            <Label Content="Mulai" Style="{StaticResource myLabel}"/>
-            <Label Content="Berakhir" Style="{StaticResource myLabel}"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.RowSpan="2">
             <TextBlock Text="{Binding Pacient.NomorPasien}" Style="{DynamicResource mytextBlock}"></TextBlock>
             <TextBlock Text="{Binding Pacient.Nama}" Style="{DynamicResource mytextBlock}"></TextBlock>
-            <TextBlock Text="{Binding Pacient.Dokter.Nama}" Style="{DynamicResource mytextBlock}"></TextBlock>
-            <TextBlock Text="{Binding Pacient.Perawat.Nama}" Style="{DynamicResource mytextBlock}"></TextBlock>
-            <TextBlock Text="{Binding JamMulai}" Style="{DynamicResource mytextBlock}"></TextBlock>
-            <TextBlock Text="{Binding JamAkhir}" Style="{DynamicResource mytextBlock}"></TextBlock>
+            <ComboBox Style="{StaticResource myCombo}" ItemsSource="{Binding NurseSourceView}" SelectedValuePath="IdPerawat" SelectedValue="{Binding IdPerawat}"
+                      DisplayMemberPath="Nama" SelectedItem="{Binding Nurse}"/>
         </StackPanel>
         <WrapPanel Grid.ColumnSpan="3" Grid.Row="1">
-            <Button Command="{Binding SaveCommand}" Content="{Binding SaveCommandContent}" Style="{StaticResource myButtonSuccess}"></Button>
-            
+            <Button Command="{Binding SaveCommand}" Content="Pilih" Style="{StaticResource myButtonSuccess}"></Button>
             <Button Command="{Binding CancelCommand}" Content="Batal" Style="{StaticResource myButtonError}"></Button>
         </WrapPanel>
     </Grid>

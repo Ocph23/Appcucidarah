@@ -18,7 +18,7 @@ namespace Appcucidarah.Forms
     /// <summary>
     /// Interaction logic for MenuUtama.xaml
     /// </summary>
-    public partial class MenuUtama : Page
+    public partial class MenuUtama : UserControl
     {
         public MenuUtama()
         {

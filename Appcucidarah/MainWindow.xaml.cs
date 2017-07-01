@@ -22,12 +22,13 @@ namespace Appcucidarah
     /// </summary>
     public partial class MainWindow : ModernWindow
     {
-        public MainWindow()
+
+        public MainWindow(user u)
         {
             InitializeComponent();
-            this.DataContext = new ViewModels.MainWindowVM();
+            this.DataContext = new ViewModels.MainWindowVM(u);
+            
         }
 
-       
     }
 }

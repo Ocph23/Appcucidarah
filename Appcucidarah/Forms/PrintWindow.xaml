@@ -1,0 +1,18 @@
+﻿<mui:ModernWindow x:Class="Appcucidarah.Forms.PrintWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Appcucidarah.Forms"
+        xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+          xmlns:wfr="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+                  mc:Ignorable="d"   Style="{StaticResource BlankWindow}" WindowState="Maximized"
+        Title="PrintWindow" Height="300" Width="300">
+    <Grid>
+        <WindowsFormsHost Margin="10">
+            <wfr:ReportViewer x:Name="rptViewer" ProcessingMode="Local"/>
+        </WindowsFormsHost>
+
+    </Grid>
+</mui:ModernWindow>

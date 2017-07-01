@@ -9,7 +9,5 @@ namespace Appcucidarah.ViewModels
         CollectionView SourceView { get; set; }
         T Selected { get; set; }
         bool Delete(T t);
-
-
     }
 }

@@ -24,7 +24,6 @@
         <WrapPanel Grid.Row="1">
             <Button Content="Tambah" Command="{Binding TambahCommand}" Style="{StaticResource myButtonSuccess}"/>
             <Button Content="Edit" Command="{Binding EditCommand}" Style="{StaticResource myButtonInfo}"/>
-            <Button Content="Hapus" Command="{Binding HapusCommand}" Style="{StaticResource myButtonError}"/>
         </WrapPanel>
     </Grid>
 </Page>

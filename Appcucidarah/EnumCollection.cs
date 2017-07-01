@@ -31,12 +31,17 @@ namespace Appcucidarah
 
     public enum ContactType
     {
-        Umum, Pasient, Dokter, Perawat
+        Umum, Pasient, Dokter, Perawat, Admin
     }
 
     public enum ProccessStatus
     {
         New,Start,Stop,Save
+    }
+
+    public enum StatusJadwal
+    {
+        Normal, Pindah, None
     }
 
 }

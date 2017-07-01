@@ -14,22 +14,27 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25*"/>
-            <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Grid.RowSpan="2">
             <Label Content="Nama" Margin="5"></Label>
             <Label Content="Username" Margin="5"></Label>
             <Label Content="Password" Margin="5"></Label>
+            <Label Content="Ulang Password" Margin="5"></Label>
+            <Label Content="Nomor Telepon" Margin="5"></Label>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.RowSpan="2">
-            <TextBox Margin="2"></TextBox>
-            <TextBox Margin="2"></TextBox>
-            <TextBox Margin="2"></TextBox>
+            <TextBox Text="{Binding NamaLengkap}" Margin="2"></TextBox>
+            <TextBox Text="{Binding UserName}" Margin="2"></TextBox>
+            <PasswordBox Name="pwsd" PasswordChanged="PasswordBox_PasswordChanged" Margin="2"></PasswordBox>
+            <PasswordBox Name="pwsdconfirm" PasswordChanged="PasswordBox_PasswordChanged_1" Margin="2"></PasswordBox>
+            <TextBox Text="{Binding Kontak.NomorTelepon}" Margin="2"></TextBox>
         </StackPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1">
-            <Button Content="Reset" Margin="2" Width="75"></Button>
-            <Button Content="Simpan" Margin="2" Width="80"></Button>
+            <Button Command="{Binding SaveCommand}" Style="{StaticResource myButtonSuccess}" Content="Simpan" Margin="2" Width="75"></Button>
+            <Button Command="{Binding ResetCommand}" Style="{StaticResource myButtonWarning}" Content="Reset" Margin="2" Width="75" Click="Button_Click"></Button>
+          
         </WrapPanel>
     </Grid>
 </Page>

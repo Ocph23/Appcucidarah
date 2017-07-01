@@ -1,13 +1,20 @@
-﻿<Page x:Class="Appcucidarah.Forms.MenuUtama"
+﻿<UserControl x:Class="Appcucidarah.Forms.MenuUtama"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="MenuUtama">
-
-    <Grid>
-        <Label Content="Selamat Datang"/>
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+      d:DesignHeight="300" d:DesignWidth="300">
+   
+    <Grid >
+        <mui:ModernTab  SelectedSource="/Forms/Messages/NewMessage.xaml" Layout="List" Background="#FF44BBB1" >
+            <mui:ModernTab.Links>
+                <mui:Link DisplayName="Pesan Baru" Source="/Forms/Messages/NewMessage.xaml"/>
+                <mui:Link DisplayName="Kotak Masuk" Source="/Forms/Messages/Inbox.xaml"/>
+                <mui:Link DisplayName="Kotak Keluar" Source="/Forms/Messages/OutBox.xaml"/>
+                <mui:Link DisplayName="Kontak" Source="/Forms/Messages/DaftarContact.xaml"/>
+            </mui:ModernTab.Links>
+        </mui:ModernTab>
     </Grid>
-</Page>
+</UserControl>

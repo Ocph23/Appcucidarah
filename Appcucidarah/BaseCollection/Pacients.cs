@@ -46,6 +46,7 @@ namespace Appcucidarah.BaseCollection
                 {
                     var t = ContactType.Pasient;
                     item.Kontak = db.Contacts.Where(O => O.UserId == item.IdPasien && O.TipeKontak== t).FirstOrDefault();
+                    item.JadwalPasien = db.JadwalPasients.Where(O => O.IdPasien == item.IdPasien).FirstOrDefault();
                 }
                 return Task.FromResult(res.OrderBy(O => O.Nama).ToList());
             }
@@ -73,6 +74,8 @@ namespace Appcucidarah.BaseCollection
                 }
             }
         }
+
+       
 
         internal bool Insert(pasien p)
         {
@@ -108,23 +111,28 @@ namespace Appcucidarah.BaseCollection
                 var trans = db.Connection.BeginTransaction();
                 try
                 {
-                    db.Contacts.Update(O => new { O.NamaKontak, O.NomorTelepon }, p.Kontak, O => O.UserId == p.IdPasien && O.TipeKontak== ContactType.Pasient);
-                    db.Pacients.Update(O => new { O.Agama, O.Alamat, O.JenisKelamin, O.Nama, O.TanggalLahir, O.TempatLahir,O.IdDokter,O.NomorPasien,O.Status, },
+                    var cType = ContactType.Pasient;
+                   var a = db.Contacts.Update(O => new { O.NamaKontak, O.NomorTelepon }, p.Kontak, O => O.UserId == p.IdPasien && O.TipeKontak== cType);
+                    var b=db.Pacients.Update(O => new { O.Agama, O.Alamat, O.JenisKelamin, O.Nama, O.TanggalLahir, O.TempatLahir,O.IdDokter,O.NomorPasien,O.Status, },
                         p, O => O.IdPasien == p.IdPasien);
-                  
-                    var item = Source.Where(O => O.IdPasien == p.IdPasien).FirstOrDefault();
-                    item.Agama = p.Agama;
-                    item.Alamat = p.Alamat;
-                    item.JenisKelamin = p.JenisKelamin;
-                    item.Kontak = p.Kontak;
-                    item.IdDokter = p.IdDokter;
-                    item.NomorPasien = p.NomorPasien;
-                    item.Nama = p.Nama;
-                    item.TanggalLahir = p.TanggalLahir;
-                    item.TempatLahir = p.TempatLahir;
-                    this.SourceView.Refresh();
-                    trans.Commit();
-                    return true;
+                    if (a && b)
+                    {
+                        var item = Source.Where(O => O.IdPasien == p.IdPasien).FirstOrDefault();
+                        item.Agama = p.Agama;
+                        item.Alamat = p.Alamat;
+                        item.JenisKelamin = p.JenisKelamin;
+                        item.Kontak = p.Kontak;
+                        item.IdDokter = p.IdDokter;
+                        item.NomorPasien = p.NomorPasien;
+                        item.Nama = p.Nama;
+                        item.TanggalLahir = p.TanggalLahir;
+                        item.TempatLahir = p.TempatLahir;
+                        this.SourceView.Refresh();
+                        trans.Commit();
+                        return true;
+                    }
+                    else
+                        throw new SystemException("Terjadi Kesalahan");
 
                 }
                 catch (Exception e)

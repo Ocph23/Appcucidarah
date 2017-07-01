@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Appcucidarah.Forms.Messages.DaftarContact"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Appcucidarah.Forms.Messages"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="91*"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0">
+            <TextBox Background="Transparent" Text="{Binding Search}" Width="173" Margin="5"></TextBox>
+            <Button Padding="0" Margin="5" Background="Transparent">
+                <iconPacks:PackIconFontAwesome Kind="Search"/>
+            </Button>
+           
+        </WrapPanel>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding SourceView}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.RowSpan="2">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel ItemHeight="144"
+                               ItemWidth="245"
+                               Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate >
+                    <StackPanel>
+                        <WrapPanel>
+                            <iconPacks:PackIconFontAwesome Kind="User" FontSize="14" FontWeight="Bold" Height="75"  Width="90"  />
+                            <StackPanel Margin="10"  HorizontalAlignment="Left" VerticalAlignment="Center" >
+                                <TextBlock  FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Text="{Binding NamaKontak}"/>
+                                <TextBlock  FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="11" Text="{Binding TipeKontak}"/>
+                                <WrapPanel Margin="10" >
+                                    <iconPacks:PackIconFontAwesome Kind="PhoneSquare" FontSize="12" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding NomorTelepon}" FontSize="10" VerticalAlignment="Bottom"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </WrapPanel>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Appcucidarah.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Appcucidarah.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DAL">
@@ -55,11 +57,29 @@
     <Reference Include="FirstFloor.ModernUI">
       <HintPath>..\packages\ModernUI.WPF.1.0.9\lib\net45\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.FontAwesome, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.FontAwesome.1.9.0\lib\net45\MahApps.Metro.IconPacks.FontAwesome.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Windows.11.0.3452\lib\net40\Microsoft.ReportViewer.DataVisualization.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Windows.11.0.3452\lib\net40\Microsoft.ReportViewer.WinForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.2\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,9 +88,11 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
       <Private>True</Private>
@@ -101,17 +123,47 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaseCollection\Contacts.cs" />
     <Compile Include="BaseCollection\Doctors.cs" />
-    <Compile Include="BaseCollection\JadwalPasients.cs" />
+    <Compile Include="BaseCollection\Inboxs.cs" />
     <Compile Include="BaseCollection\Jadwals.cs" />
+    <Compile Include="BaseCollection\Outboxs.cs" />
     <Compile Include="BaseCollection\Pacients.cs" />
     <Compile Include="BaseCollection\Perawats.cs" />
+    <Compile Include="BaseCollection\Users.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="FormLogin.xaml.cs">
+      <DependentUpon>FormLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\JadwalPasien.xaml.cs">
       <DependentUpon>JadwalPasien.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Messages\DaftarContact.xaml.cs">
+      <DependentUpon>DaftarContact.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Messages\Inbox.xaml.cs">
+      <DependentUpon>Inbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Messages\NewMessage.xaml.cs">
+      <DependentUpon>NewMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Messages\Outbox.xaml.cs">
+      <DependentUpon>Outbox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ModernWindow1.xaml.cs">
       <DependentUpon>ModernWindow1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PermintaanPindah.xaml.cs">
+      <DependentUpon>PermintaanPindah.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PrintWindow.xaml.cs">
+      <DependentUpon>PrintWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReportCuciDarah.xaml.cs">
+      <DependentUpon>ReportCuciDarah.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\TambahJadwalPasien.xaml.cs">
       <DependentUpon>TambahJadwalPasien.xaml</DependentUpon>
@@ -119,14 +171,25 @@
     <Compile Include="Forms\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="Models\Data\permintaanpindah.cs" />
+    <Compile Include="Models\Data\viewpermintaan.cs" />
     <Compile Include="Models\Views\CuciDarahView.cs" />
+    <Compile Include="Models\Views\RCucidarahModel.cs" />
+    <Compile Include="SMSCommandHandler.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModels\CuciDarahVM.cs" />
+    <Compile Include="ViewModels\DaftarUserVM.cs" />
     <Compile Include="ViewModels\DokterVM.cs" />
     <Compile Include="ViewModels\IBaseViewModel.cs" />
     <Compile Include="ViewModels\JadwalPasienVM.cs" />
     <Compile Include="ViewModels\JadwalVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
+    <Compile Include="ViewModels\Messages\DaftarContactVM.cs" />
+    <Compile Include="ViewModels\Messages\InboxVM.cs" />
+    <Compile Include="ViewModels\Messages\NewMessageVM.cs" />
+    <Compile Include="ViewModels\Messages\OutboxVM.cs" />
     <Compile Include="ViewModels\PasienVM.cs" />
     <Compile Include="ViewModels\PerawatVM.cs" />
     <Compile Include="ViewModels\TambahCuciDarahVM.cs" />
@@ -135,6 +198,12 @@
     <Compile Include="ViewModels\TambahJadwalVM.cs" />
     <Compile Include="ViewModels\TambahPasienVM.cs" />
     <Compile Include="ViewModels\TambahPerawatVM.cs" />
+    <Compile Include="ViewModels\UserVM.cs" />
+    <Compile Include="ViewModels\ViewPermintaanVM.cs" />
+    <Page Include="FormLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\CuciDarah.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,11 +220,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Help.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\JadwalPasien.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\MenuUtama.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Messages\DaftarContact.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Messages\Inbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Messages\NewMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Messages\Outbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,7 +260,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\PermintaanPindah.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Pesan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\PrintWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ReportCuciDarah.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,11 +393,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="LCuciDarah.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report1.rdlc" />
+    <None Include="Appcucidarah.ruleset" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Appcucidarah.Models.Views.RCucidarahModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -320,6 +425,41 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\1494148615_nurse.png" />
+    <Resource Include="Image\1494148757_Nurse_Male_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\1494198061_telegram.png" />
+    <Resource Include="Image\1494198085_calls.png" />
+    <Resource Include="Image\1494198112_contacts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x64\msvcr100.dll">
+      <Link>SqlServerTypes\x64\msvcr100.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x64\SqlServerSpatial110.dll">
+      <Link>SqlServerTypes\x64\SqlServerSpatial110.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x86\msvcr100.dll">
+      <Link>SqlServerTypes\x86\msvcr100.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x86\SqlServerSpatial110.dll">
+      <Link>SqlServerTypes\x86\SqlServerSpatial110.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Image\logo_rsud_putih.png" />
+    <Content Include="SqlServerTypes\readme.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Project Tools\OcphSMSLIB\OcphSMSLib\OcphSMSLib.csproj">
+      <Project>{31fe0f53-5d32-454f-b40a-ad09e6f3edb1}</Project>
+      <Name>OcphSMSLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

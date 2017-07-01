@@ -1,81 +1,47 @@
 ﻿using Appcucidarah.Models.Data;
 using System;
+using System.Linq;
+using System.Collections;
+using System.Windows.Data;
 
 namespace Appcucidarah.ViewModels
 {
-    public class TambahCuciDarahVM:Models.Data.cucidarah
+    public class TambahCuciDarahVM
     {
-        private string _saveContent;
-
-        public pasien Pacient { get; set; }
+        public perawat Nurse  { get; set; }
         public CommandHandler SaveCommand { get; private set; }
-        public ProccessStatus ProccessStatus { get; private set; }
-        public string SaveCommandContent {
-            get { return _saveContent; }
-            set
-            {
-                _saveContent = value;
-                OnPropertyChange("SaveCommandContent");
-            }
-        }
-
-        public TambahCuciDarahVM()
-        {
-        }
+        public Action WindowClose { get; internal set; }
+        public CommandHandler CancelCommand { get; private set; }
+        public CollectionView NurseSourceView { get; private set; }
 
         public TambahCuciDarahVM(pasien pacientSelected)
         {
             Pacient= pacientSelected;
-            this.Load();
-           
+            SaveCommand = new CommandHandler { CanExecuteAction = SaveCommandValidate, ExecuteAction = SaveCommandAction };
+            CancelCommand = new CommandHandler { CanExecuteAction = x => true, ExecuteAction = CancelAction };
+            NurseSourceView = Helper.GetMainContex().Nurses.SourceView;
+
         }
 
-        private void Load()
+        private void CancelAction(object obj)
         {
-            this.ProccessStatus = ProccessStatus.New;
-            SaveCommand = new CommandHandler { CanExecuteAction = SaveCommandValidate, ExecuteAction = SaveCommandAction };
+            Nurse = null;
+            WindowClose();
         }
+
+        public pasien Pacient { get; private set; }
 
         private void SaveCommandAction(object obj)
         {
-            if(ProccessStatus.New== ProccessStatus)
-            {
-                ProccessStatus = ProccessStatus.Start;
-                this.JamMulai = DateTime.Now;
-                //SaveCommandContent = "Start";
-            }else
-            if (ProccessStatus.Start == ProccessStatus)
-            {
-                ProccessStatus = ProccessStatus.Stop;
-                this.JamAkhir = DateTime.Now;
-            }
-            else
-            if (ProccessStatus.Stop == ProccessStatus)
-            {
-                ProccessStatus = ProccessStatus.Save;
-                //SaveCommandContent = "Start";
-            }else
-            if (ProccessStatus.Save == ProccessStatus)
-            {
-                ProccessStatus = ProccessStatus.New;
-                //SaveCommandContent = "Start";
-            }
-
-
+            WindowClose();
         }
 
         private bool SaveCommandValidate(object obj)
         {
-           if(ProccessStatus== ProccessStatus.New)
-                SaveCommandContent = "Start";
-            if (ProccessStatus == ProccessStatus.Start)
-                SaveCommandContent = "Stop";
-            if (ProccessStatus == ProccessStatus.Stop)
-                SaveCommandContent = "Simpan";
-
-
-
-            return true;
+            if (Nurse != null)
+                return true;
+            else
+                return false;
         }
     }
 }

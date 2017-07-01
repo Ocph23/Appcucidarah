@@ -1,4 +1,5 @@
 ﻿using Appcucidarah.Models.Views;
+using FirstFloor.ModernUI.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FirstFloor.ModernUI.Windows.Navigation;
+using Appcucidarah.ViewModels;
 
 namespace Appcucidarah.Forms
 {
     /// <summary>
     /// Interaction logic for CuciDarah.xaml
     /// </summary>
-    public partial class CuciDarah : Page
+    public partial class CuciDarah : UserControl,IContent
     {
         private ViewModels.CuciDarahVM vm = new ViewModels.CuciDarahVM();
         public CuciDarah()
@@ -28,33 +31,34 @@ namespace Appcucidarah.Forms
             this.DataContext = vm;
         }
 
-        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
         {
-            var treeItem = sender as TreeView;
-       
-            var TreeItemSelected = treeItem.SelectedItem;
-            
-            if (treeItem.SelectedItem.GetType()==typeof(Models.Data.pasien))
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+            var f = (CuciDarah)e.Content;
+            var vm = (CuciDarahVM)f.DataContext;
+            if(vm.SourceView.Filter==null)
             {
-                vm.PacientSelected = (Models.Data.pasien)treeItem.SelectedItem;
-                foreach(CuciDarahView item in treeItem.ItemsSource)
-                {
-                    foreach(var item2 in item.Pacients)
-                    {
-                        if(item2.Equals(vm.PacientSelected))
-                        {
-                            vm.Selected = item;
-                        }
-                    }
-                }
-            }else
-            {
-                vm.PacientSelected = null;
-                vm.Selected = (CuciDarahView)treeItem.SelectedItem;
+                vm.SourceView.Filter = vm.FilterHari;
             }
-           
+            if(vm.Today.Date!=DateTime.Now.Date)
+            {
+                vm.Today = DateTime.Now;
+            }
 
         }
-    
+
+        public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+           // throw new NotImplementedException();
+        }
     }
 }

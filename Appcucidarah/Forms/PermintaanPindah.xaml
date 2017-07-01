@@ -1,0 +1,50 @@
+﻿<Page x:Class="Appcucidarah.Forms.PermintaanPindah"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Appcucidarah.Forms"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="PermintaanPindah">
+
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="83"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.RowSpan="2" Style="{StaticResource myDataGrid}" ItemsSource="{Binding SourceView}" SelectedItem="{Binding SelectedItem}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+
+                        <DataTrigger Binding="{Binding IdPindah}" Value="0">
+                            <Setter Property="Background" Value="#FFB4AFAF"></Setter>
+                            <Setter Property="Opacity" Value="0.5"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nomor Pasien" Binding="{Binding NomorPasien}"/>
+                <DataGridTextColumn Header="Nama Pasien" Binding="{Binding Nama}"/>
+                <DataGridTextColumn Header="Hari I" Binding="{Binding JadwalPasien.Jadwal.HariPertama}"/>
+                <DataGridTextColumn Header="Hari II" Binding="{Binding JadwalPasien.Jadwal.HariKedua}"/>
+                <DataGridTextColumn Width="100" Header="Dari Shif" Binding="{Binding JadwalPasien.JadwalDari.Shif}"/>
+                <DataGridTextColumn Width="100" Header="Ke Shif" Binding="{Binding JadwalPasien.JadwalKe.Shif}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding JadwalPasien.Status}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1">
+            <WrapPanel Margin="5,0">
+                <TextBlock Text="Alasan" Width="69"></TextBlock>
+                <TextBox MaxLength="80" Text="{Binding Alasan,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=False}" Width="187"></TextBox>
+            </WrapPanel>
+            <WrapPanel>
+                <Button Content="Izinkan" Command="{Binding IzinCommand}" Style="{StaticResource myButtonSuccess}"/>
+                <Button Content="Tidak" Command="{Binding TidakIzinCommand}" Style="{StaticResource myButtonError}"/>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Page>

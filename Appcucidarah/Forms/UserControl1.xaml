@@ -3,12 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:Appcucidarah.Forms"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" Height="143.334" Width="244.667">
     <Grid>
-        <StackPanel>
-            
+        <StackPanel Height="143.334" Width="244.667">
+            <WrapPanel>
+                <iconPacks:PackIconFontAwesome Kind="User" FontSize="14" FontWeight="Bold" Height="93"  Width="83"  />
+                <StackPanel Margin="10"  HorizontalAlignment="Left" VerticalAlignment="Center" >
+                    <TextBlock  FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Text="None"/>
+                    <TextBlock  FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Text="None"/>
+                </StackPanel>
+            </WrapPanel>
+            <WrapPanel Margin="10" >
+                <iconPacks:PackIconFontAwesome Kind="Phone" FontSize="14" FontWeight="Bold" />
+                <TextBlock Text="Telepon" FontSize="14" FontWeight="Bold" Width="65"/>
+                <TextBlock Text="Telepon" FontSize="12" VerticalAlignment="Bottom"/>
+            </WrapPanel>
         </StackPanel>
+
     </Grid>
 </UserControl>

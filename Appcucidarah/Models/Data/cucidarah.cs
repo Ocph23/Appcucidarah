@@ -20,17 +20,39 @@ using System.Threading.Tasks;using DAL;
                      }
           } 
 
-          [DbColumn("IdTransaksiJadwal")] 
-          public int IdTransaksiJadwal 
+          [DbColumn("IdPasien")] 
+          public int IdPasien
           { 
-               get{return _idtransaksijadwal;} 
+               get{return _idpasien;} 
                set{ 
-                      _idtransaksijadwal=value; 
-                     OnPropertyChange("IdTransaksiJadwal");
+                      _idpasien=value; 
+                     OnPropertyChange("IdPasien");
                      }
-          } 
+          }
 
-          [DbColumn("JamMulai")] 
+        [DbColumn("IdJadwal")]
+        public int IdJadwal
+        {
+            get { return _idjadwal; }
+            set
+            {
+                _idjadwal = value;
+                OnPropertyChange("IdJadwal");
+            }
+        }
+
+        [DbColumn("IdPerawat")]
+        public int IdPerawat
+        {
+            get { return _idperawat; }
+            set
+            {
+                _idperawat = value;
+                OnPropertyChange("IdPerawat");
+            }
+        }
+
+        [DbColumn("JamMulai")] 
           public DateTime JamMulai 
           { 
                get{return _jammulai;} 
@@ -51,10 +73,12 @@ using System.Threading.Tasks;using DAL;
           } 
 
           private int  _idcucidarah;
-           private int  _idtransaksijadwal;
+           private int  _idpasien;
            private DateTime  _jammulai;
            private DateTime  _jamakhir;
-      }
+        private int _idjadwal;
+        private int _idperawat;
+    }
 }
 
 

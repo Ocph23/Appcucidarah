@@ -8,13 +8,12 @@
 	Title="DaftarUser">
 
     <Grid Style="{StaticResource ContentRoot}">
-        <DataGrid HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Height="53" Width="205">
+        <DataGrid Style="{StaticResource myDataGrid}"  ItemsSource="{Binding Collection.SourceView}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="No"/>
-                <DataGridTextColumn Header="Nama"/>
-                <DataGridTextColumn Header="Username"/>
+                <DataGridTextColumn Header="Nama" Binding="{Binding NamaLengkap}"/>
+                <DataGridTextColumn Header="User Name" Binding="{Binding UserName}"/>
+                <DataGridTextColumn Header="Nomor Telepon" Binding="{Binding Kontak.NomorTelepon}"/>
             </DataGrid.Columns>
-
         </DataGrid>
     </Grid>
 </Page>

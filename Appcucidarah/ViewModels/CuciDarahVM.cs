@@ -7,84 +7,59 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Appcucidarah.Models.Data;
+using DAL;
 
 namespace Appcucidarah.ViewModels
 {
-    public class CuciDarahVM : IBaseViewModel<CuciDarahView>
+    public class CuciDarahVM : BaseNotifyProperty
     {
-        public CuciDarahView Selected { get; set; }
+        private DateTime _today;
 
-        public ObservableCollection<CuciDarahView> Source { get; set; }
+      //  public CuciDarahView Selected { get; set; }
         public CollectionView SourceView { get; set; }
         public pasien PacientSelected { get; internal set; }
-        public CommandHandler ProccessCommand { get; private set; }
-        public CommandHandler EditCommand { get; private set; }
+      
+        public DateTime Today
+        {
+            get { return _today; }
+            set { _today = value;
+                this.SourceView.Refresh();
+                OnPropertyChange("Today");
+
+            }
+           
+        }
 
         public CuciDarahVM()
         {
+            var pasientContext = Helper.GetMainContex().Pacients.Source.Where(O=>O.JadwalPasien!=null).OrderBy(O=>O.JadwalPasien.Jadwal.Shif);
+            SourceView = (CollectionView)CollectionViewSource.GetDefaultView(pasientContext);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("JadwalPasien.Jadwal.HeaderView");
+            PropertyGroupDescription groupDescription2 = new PropertyGroupDescription("JadwalPasien.Jadwal.Shif");
+            SourceView.GroupDescriptions.Add(groupDescription);
+            SourceView.GroupDescriptions.Add(groupDescription2);
+            SourceView.Filter = FilterHari;
 
-            ProccessCommand = new CommandHandler { CanExecuteAction = x =>PacientSelected!=null, ExecuteAction = ProccessAction };
-            EditCommand = new CommandHandler { CanExecuteAction = x => PacientSelected!=null, ExecuteAction = EditAction };
-            Source = new ObservableCollection<CuciDarahView>();
-            SourceView = (CollectionView)CollectionViewSource.GetDefaultView(Source);
-            var task = GetCollectionFromDatabase();
-            this.CompleteTask(task);
+            Today = DateTime.Now;
+          
+            SourceView.Refresh();
         }
 
-        private void EditAction(object obj)
+        public bool FilterHari(object obj)
         {
-            throw new NotImplementedException();
-        }
-
-        private void ProccessAction(object obj)
-        {
-            var form = new Forms.TambahCuciDarah();
-            var vm = new ViewModels.TambahCuciDarahVM(this.PacientSelected);
-            form.DataContext = vm;
-            form.ShowDialog();
-        }
-
-        private async void CompleteTask(Task<List<CuciDarahView>> task)
-        {
-            var x = await task;
-            foreach (var item in x)
+            var hari = (Day)Today.DayOfWeek;
+            var pas = obj as pasien;
+            if (pas != null &&pas.JadwalPasien!=null && pas.JadwalPasien.Jadwal!=null)
             {
-                Source.Add(item);
-                SourceView.Refresh();
-            }
-        }
-
-        private Task<List<CuciDarahView>> GetCollectionFromDatabase()
-        {
-            List<CuciDarahView> list = new List<CuciDarahView>();
-            using (var db = new OcphDbContext())
-            {
-                var today = DateTime.Now;
-                var hari = (Day)today.DayOfWeek;
-                var res = db.Jadwals.Where(O => O.HariPertama == hari || O.HariKedua == hari);
-                foreach (var item in res)
+                if (pas.JadwalPasien.Jadwal.HariPertama==hari ||pas.JadwalPasien.Jadwal.HariKedua==hari)
                 {
-                    CuciDarahView view = new CuciDarahView(item);
-                  
-                    view.Pacients = (from a in db.JadwalPasients.Where(O => O.IdJadwal == item.IdJadwal)
-                                    join p in db.Pacients.Select() on a.IdPasien equals p.IdPasien
-                                    select p).ToList();
-                    foreach(var pacient in view.Pacients)
-                    {
-                        ContactType t = ContactType.Pasient;
-                        pacient.Kontak = db.Contacts.Where(O => O.UserId == pacient.IdPasien && O.TipeKontak ==t).FirstOrDefault();
-                    }
-
-                    if(view.Pacients.Count>0)
-                        list.Add(view);
+                    return true;
                 }
-                return Task.FromResult(list);
+                return false;
             }
+            return false;
         }
-        public bool Delete(CuciDarahView t)
-        {
-            
-            throw new NotImplementedException();
-        }
+
+    
     }
 }

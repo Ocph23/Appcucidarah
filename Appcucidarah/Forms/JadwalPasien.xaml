@@ -4,25 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="43"/>
+            <RowDefinition/>
             <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Margin="5">
+            <TextBox Background="Transparent" Text="{Binding Search}" Width="173" Margin="0,5"></TextBox>
+            <Button Padding="0" Margin="0,5" Background="Transparent">
+                <iconPacks:PackIconFontAwesome Kind="Search" Width="27"/>
+            </Button>
+        </WrapPanel>
 
-
-        <DataGrid Style="{StaticResource myDataGrid}" ItemsSource="{Binding CollectionData.SourceView}" SelectedItem="{Binding CollectionData.Selected}" Grid.RowSpan="2">
+        <DataGrid Grid.Row="1" Style="{StaticResource myDataGrid}" ItemsSource="{Binding SourceView}" SelectedItem="{Binding Selected}" Grid.RowSpan="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Pacient.NomorPasien}" Header="Nomor Pasien"/>
-                <DataGridTextColumn Binding="{Binding Pacient.Nama}" Header="Nama"/>
-                <DataGridTextColumn Binding="{Binding Jadwal.HariPertama}" Header="Hari Pertama"/>
-                <DataGridTextColumn Binding="{Binding Jadwal.HariKedua}" Header="Hari Kedua"/>
-                <DataGridTextColumn Binding="{Binding Jadwal.Shif}" Header="Shift"/>
+                <DataGridTextColumn Binding="{Binding NomorPasien}" Header="Nomor Pasien"/>
+                <DataGridTextColumn Binding="{Binding Nama}" Header="Nama"/>
+                <DataGridTextColumn Binding="{Binding JadwalPasien.Jadwal.HariPertama}" Header="Hari Pertama"/>
+                <DataGridTextColumn Binding="{Binding JadwalPasien.Jadwal.HariKedua}" Header="Hari Kedua"/>
+                <DataGridTextColumn Binding="{Binding JadwalPasien.Jadwal.Shif}" Header="Shift"/>
             </DataGrid.Columns>
         </DataGrid>
-        <WrapPanel Grid.Column="0" Grid.Row="1">
+        <WrapPanel Grid.Row="2">
             <Button Content="Tambah" Command="{Binding TambahCommand}" Style="{StaticResource myButtonSuccess}"/>
             <Button Content="Edit" Command="{Binding EditCommand}" Style="{StaticResource myButtonInfo}"/>
             <Button Content="Hapus" Command="{Binding HapusCommand}" Style="{StaticResource myButtonError}"/>

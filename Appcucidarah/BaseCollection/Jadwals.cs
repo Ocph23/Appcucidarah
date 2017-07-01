@@ -85,8 +85,8 @@ namespace Appcucidarah.BaseCollection
                 }
                 catch (Exception ex)
                 {
-                    ModernDialog.ShowMessage(ex.Message, "Error", System.Windows.MessageBoxButton.OK);
-                    return false;
+                    trans.Rollback();
+                    throw new SystemException(ex.Message);
                 }
             }
         }
@@ -116,10 +116,10 @@ namespace Appcucidarah.BaseCollection
                         return false;
 
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     trans.Rollback();
-                    throw new SystemException(e.Message);
+                    throw new SystemException(ex.Message);
                 }
             }
         }

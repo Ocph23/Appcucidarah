@@ -48,7 +48,12 @@ using System.Threading.Tasks;using DAL;
                       _password=value; 
                      OnPropertyChange("Password");
                      }
-          } 
+          }
+        
+            public string PasswordConfirm { get; set; } 
+            public kontak Kontak { get; set; }
+
+
 
           private int  _id;
            private string  _namalengkap;
