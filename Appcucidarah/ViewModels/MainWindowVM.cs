@@ -98,7 +98,7 @@ namespace Appcucidarah.ViewModels
 
                 foreach (var pacient in this.Pacients.Source.Where(O => O.Status == true))
                 {
-                    if (date.TimeOfDay >= new TimeSpan(9, 0, 0) && date.TimeOfDay <= new TimeSpan(9, 1, 0))
+                    if (date.TimeOfDay >= new TimeSpan(9, 0, 0) && date.TimeOfDay <= new TimeSpan(9, 2, 0))
                     {
                         if (pacient.Kontak != null && pacient.JadwalPasien != null)
                         {

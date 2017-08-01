@@ -216,36 +216,46 @@ namespace Appcucidarah
                                 {
                                     if (jp != null && jp.Temp <= 0)
                                     {
-                                        jp.Temp = pacient.JadwalPasien.IdJadwal;
+                                       
                                         var trans = db.Connection.BeginTransaction();
                                         try
                                         {
-                                            var p = new permintaanpindah { Dari = jp.Temp, Ke = shifChoice.IdJadwal, IdPasien = pacient.IdPasien, TanggalPengajuan = DateTime.Now };
-                                            var id = db.PermintaanPindahs.InsertAndGetLastID(p);
-                                            jp.Temp = id;
-                                            jp.Status = StatusJadwal.Normal;
-                                            if (id > 0 && db.JadwalPasients.Update(O => new { O.Temp, O.Status }, jp, O => O.IdJadwalPasien == jp.IdJadwalPasien))
+                                            var countpasient = mainVM.Pacients.Source.Where(O => O.JadwalPasien != null && O.JadwalPasien.IdJadwal == shifChoice.IdJadwal).Count();
+                                            if (countpasient >= Helper.MaxSlot)
                                             {
-
-                                                var countpasient = mainVM.Pacients.Source.Where(O => O.JadwalPasien!=null && O.JadwalPasien.IdJadwal == shifChoice.IdJadwal).Count();
-                                                modem.SendMessage(new SMSMessage { DateTime = DateTime.Now, DestinationNumber = pacient.Kontak.NomorTelepon, MessageText = "Menunggu Persetujuan Admin" });
-                                                var admins = mainVM.Contacts.Source.Where(O => O.TipeKontak == ContactType.Admin);
-                                                foreach (var item in admins)
-                                                {
-                                                   await  Task.Delay(1000);
-                                                    modem.SendMessage(new SMSMessage
-                                                    {
-                                                        DateTime = DateTime.Now,
-                                                        DestinationNumber = item.NomorTelepon,
-                                                        MessageText = "Ada Permintaan Pindah, Nomor Pasien " + pacient.NomorPasien + Environment.NewLine +
-                                                        "Jumlah Pasient di" + shifChoice.Shif.ToString() + " sebanyak " + countpasient +" Orang"
-                                                    });
-                                                }
-                                                trans.Commit();
+                                                modem.SendMessage(new SMSMessage { DateTime = DateTime.Now, DestinationNumber = pacient.Kontak.NomorTelepon,
+                                                    MessageText = "Maaf Permintaan Pindah Anda, Tidak Dizinkan Karena "+
+                                                           shifChoice.Shif.ToString() + " Telah Penuh"
+                                                });
                                             }
                                             else
                                             {
-                                                throw new SystemException("Permintaan Anda Tidak Dapat Diproses, Hubungi Petugas");
+                                                jp.Temp = pacient.JadwalPasien.IdJadwal;
+                                                var p = new permintaanpindah { Dari = jp.Temp, Ke = shifChoice.IdJadwal, IdPasien = pacient.IdPasien, TanggalPengajuan = DateTime.Now };
+                                                var id = db.PermintaanPindahs.InsertAndGetLastID(p);
+                                                jp.Temp = id;
+                                                jp.Status = StatusJadwal.Normal;
+                                                if (id > 0 && db.JadwalPasients.Update(O => new { O.Temp, O.Status }, jp, O => O.IdJadwalPasien == jp.IdJadwalPasien))
+                                                {
+                                                    modem.SendMessage(new SMSMessage { DateTime = DateTime.Now, DestinationNumber = pacient.Kontak.NomorTelepon, MessageText = "Menunggu Persetujuan Admin" });
+                                                    var admins = mainVM.Contacts.Source.Where(O => O.TipeKontak == ContactType.Admin);
+                                                    foreach (var item in admins)
+                                                    {
+                                                        await Task.Delay(1000);
+                                                        modem.SendMessage(new SMSMessage
+                                                        {
+                                                            DateTime = DateTime.Now,
+                                                            DestinationNumber = item.NomorTelepon,
+                                                            MessageText = "Ada Permintaan Pindah, Nomor Pasien " + pacient.NomorPasien + Environment.NewLine +
+                                                            "Jumlah Pasient di" + shifChoice.Shif.ToString() + " sebanyak " + countpasient + " Orang"
+                                                        });
+                                                    }
+                                                    trans.Commit();
+                                                }
+                                                else
+                                                {
+                                                    throw new SystemException("Permintaan Anda Tidak Dapat Diproses, Hubungi Petugas");
+                                                }
                                             }
                                         }
                                         catch (Exception ex)
