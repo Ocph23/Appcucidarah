@@ -56,7 +56,7 @@ namespace Appcucidarah.ViewModels
             {
                 
                 var mw = Helper.GetMainContex();
-                if(mw.Pacients.Source.Where(O=>O.JadwalPasien!=null&& O.JadwalPasien.IdJadwal==p.IdJadwal).Count()>Helper.MaxSlot)
+                if(mw.Pacients.Source.Where(O=>O.JadwalPasien!=null&& O.JadwalPasien.IdJadwal==p.IdJadwal).Count()>=Helper.MaxSlot)
                 {
                     ModernDialog.ShowMessage("Jumlah Maximum Telah Terpenuhi", "Error", System.Windows.MessageBoxButton.OK);
                 }else

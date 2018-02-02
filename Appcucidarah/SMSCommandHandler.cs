@@ -241,7 +241,7 @@ namespace Appcucidarah
                                                     var admins = mainVM.Contacts.Source.Where(O => O.TipeKontak == ContactType.Admin);
                                                     foreach (var item in admins)
                                                     {
-                                                        await Task.Delay(1000);
+                                                        await Task.Delay(3000);
                                                         modem.SendMessage(new SMSMessage
                                                         {
                                                             DateTime = DateTime.Now,

@@ -124,6 +124,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppConfiguration.cs" />
     <Compile Include="BaseCollection\Contacts.cs" />
     <Compile Include="BaseCollection\Doctors.cs" />
     <Compile Include="BaseCollection\Inboxs.cs" />
@@ -166,6 +167,9 @@
     <Compile Include="Forms\ReportCuciDarah.xaml.cs">
       <DependentUpon>ReportCuciDarah.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Setting.xaml.cs">
+      <DependentUpon>Setting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TambahJadwalPasien.xaml.cs">
       <DependentUpon>TambahJadwalPasien.xaml</DependentUpon>
     </Compile>
@@ -193,6 +197,7 @@
     <Compile Include="ViewModels\Messages\OutboxVM.cs" />
     <Compile Include="ViewModels\PasienVM.cs" />
     <Compile Include="ViewModels\PerawatVM.cs" />
+    <Compile Include="ViewModels\SettingVM.cs" />
     <Compile Include="ViewModels\TambahCuciDarahVM.cs" />
     <Compile Include="ViewModels\TambahDokterVM.cs" />
     <Compile Include="ViewModels\TambahJadwalPasienVM.cs" />
@@ -274,6 +279,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ReportCuciDarah.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Setting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

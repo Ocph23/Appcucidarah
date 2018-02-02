@@ -45,6 +45,11 @@
                 <mui:Link DisplayName="Report Cuci Darah" Source="/Forms/ReportCuciDarah.xaml"/>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Setting">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="" Source="/Forms/Setting.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
 
     </mui:ModernWindow.MenuLinkGroups>
 </mui:ModernWindow>

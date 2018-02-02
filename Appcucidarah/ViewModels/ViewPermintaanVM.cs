@@ -65,7 +65,7 @@ namespace Appcucidarah.ViewModels
 
                 if (db.JadwalPasients.Update(O => new { O.Temp }, new jadwalpasien { Temp=0 }, O => O.IdJadwalPasien == SelectedItem.JadwalPasien.IdJadwalPasien))
                 {
-                    Helper.GetMainContex().Modem.SendMessage(new OcphSMSLib.Models.SMSMessage { DestinationNumber = SelectedItem.Kontak.NomorTelepon, MessageText = "Maaf Permintaan Anda Tidak Kami Diizinkan "+this.Alasan });
+                    Helper.GetMainContex().Modem.SendMessage(new OcphSMSLib.Models.SMSMessage { DestinationNumber = SelectedItem.Kontak.NomorTelepon, MessageText = "Maaf Permintaan Anda Tidak Kami Izinkan "+this.Alasan });
                     this.SelectedItem.JadwalPasien.Temp = 0;
                     this.SourceView.Refresh();
                 }
